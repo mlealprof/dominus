@@ -15,14 +15,14 @@
 
             <div class="col-6">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="voce@example.com">
+                <input type="email" class="form-control form-control-sm"  id="email" name="email" placeholder="voce@example.com">
             </div>
 
 
 
             <div class="col-sm-2">
                 <label class="form-label">Data de Nascimento</label>
-                <input type="text" class="form-control form-control-sm" id="nascimento" name="dataNascimento" placeholder="DD/MM/AAAA"
+                <input type="text" class="form-control form-control-sm"  id="nascimento" name="dataNascimento" placeholder="DD/MM/AAAA"
                 >
             </div>
 
@@ -42,18 +42,18 @@
 
             <div class="col-3">
                 <label class="form-label">Celular</label>
-                <input type="text" class="form-control form-control-sm" id="telefone" name="telefone"
+                <input type="text" class="form-control form-control-sm"  id="telefone" name="telefone"
                     placeholder="(00) 00000-0000">
             </div>
 
             <div class="col-3">
                 <label class="form-label">RG</label>
-                <input type="text" class="form-control form-control-sm" id="rg" name="rg" placeholder="00.000.000-0">
+                <input type="text" class="form-control form-control-sm"  id="rg" name="rg" placeholder="00.000.000-0">
             </div>
 
             <div class="col-md-2">
                 <label class="form-label">Estado Emissor</label>
-                <select class="form-select form-select-sm" id="estadoEmissor" name="estadoEmissor">
+                <select class="form-select form-select-sm" id="estadoEmissor"  name="estadoEmissor">
                     @foreach ($estados as $estado)
                         <option value="{{ $estado->uf }}">{{ $estado->uf }}</option>
                     @endforeach
@@ -67,7 +67,7 @@
 
             <div class="col-sm-2">
                 <label class="form-label">Data de expedição</label>
-                <input type="text" class="form-control form-control-sm" id="expedicaoRg" name="dataExpedicao" placeholder="DD/MM/AAAA"
+                <input type="text" class="form-control form-control-sm"  id="expedicaoRg" name="dataExpedicao" placeholder="DD/MM/AAAA"
                     >
             </div>
 
@@ -83,7 +83,7 @@
 
             <div class="col-2">
                 <label class="form-label">Complemento</label>
-                <input type="text" class="form-control form-control-sm" id="complemento" name="complemento">
+                <input type="text" class="form-control form-control-sm"  id="complemento" name="complemento">
             </div>
 
             <div class="col-4">
@@ -93,18 +93,18 @@
 
             <div class="col-sm-5">
                 <label class="form-label">Cidade</label>
-                <input type="text" class="form-control form-control-sm" id="cidade" name="cidade">
+                <input type="text" class="form-control form-control-sm"  id="cidade" name="cidade">
             </div>
 
             <div class="col-sm-2">
                 <label class="form-label">CEP</label>
-                <input type="text" class="form-control form-control-sm" id="cep" placeholder="00000-000"
+                <input type="text" class="form-control form-control-sm"  id="cep" placeholder="00000-000"
                     name="cep">
             </div>
 
             <div class="col-sm-1">
                 <label class="form-label">Estado</label>
-                <select class="form-select form-select-sm" id="estado" name="estado" value="">
+                <select class="form-select form-select-sm" id="estado"  name="estado" value="">
 
                     @foreach ($estados as $estado)
                         <option value="{{$estado->uf}}">{{$estado->uf}}</option>
