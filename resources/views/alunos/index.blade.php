@@ -5,7 +5,7 @@
         </div>
     </div>
 
-        <table id="tableProfessores" class="display table table-striped" style="width:100%">
+        <table id="tableAlunos" class="display table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Matricula</th>

@@ -24,7 +24,7 @@ class LoginController extends Controller
         ]);
 
         if ($request->email == 'dominus' & $request->password == 'admin') {
-            return redirect('professores');
+            return redirect('home');
         } else {
             return $this->index();
         }

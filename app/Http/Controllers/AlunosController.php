@@ -56,6 +56,7 @@ class AlunosController extends Controller
         $aluno->cep = $request->cep;
         $aluno->cidade = $request->cidade;
         $aluno->estado = $request->estado;
+        $aluno->cpf = $request->cpf;
         $aluno->save();
 
         return redirect('alunos');

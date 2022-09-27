@@ -14,12 +14,17 @@
                 <input type="text" class="form-control form-control-sm" id="matricula" name="matricula" required="" value="{{$aluno->matricula}}">
             </div>
 
-            <div class="col-6">
+            <div class="col-sm-4">
+                <label class="form-label">*CPF</label>
+                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00"required="">
+            </div>
+
+            <div class="col-4">
                 <label class="form-label">*Email</label>
                 <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="voce@example.com" required="" value="{{ $aluno->email }}">
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <label class="form-label">*Data de Nascimento</label>
                 <input type="text" class="form-control form-control-sm" id="nascimento" name="dataNascimento" placeholder="DD/MM/AAAA"
                     required="" value="{{$aluno->dataNascimento}}">

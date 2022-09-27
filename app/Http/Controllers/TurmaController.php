@@ -21,8 +21,9 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()    
     {
+     
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $modulos = Modulo::query()->orderBy('nome')->get();
@@ -33,7 +34,7 @@ class TurmaController extends Controller
             'cursos' => $cursos,
             'modulos' => $modulos,
             'alunos' => $alunos,
-            'professores' => $professores
+            'professores' => $professores,
         ]);
     }
 
@@ -129,15 +130,28 @@ class TurmaController extends Controller
      * @param  \App\Models\Turma  $turma
      * @return \Illuminate\Http\Response
      */
-    public function Alunos(Turma $turma)
+    public function Alunos(Request $request,Turma $turma)
     {
-        $todosAlunos = Aluno::query()->orderBy('nome')->get();
+
+      
+       $search = $request->search;
+
+       if($search<>''){
+           $todosAlunos = Aluno::where([
+             ['nome','like','%'.$search.'%']
+           ])->get();
+       }else{
+          
+           $todosAlunos = Aluno::query()->orderBy('nome')->get();
+        }
+        
         $alunos = DB::table('turma_aluno')->where('turma_id', $turma->id)->get();
 
         return view('turmas.alunos',[
             'todosAlunos' => $todosAlunos,
             'alunos' => $alunos,
-            'turma' => $turma
+            'turma' => $turma,
+            'search' =>$search         
         ]);
     }
 

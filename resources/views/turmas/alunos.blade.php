@@ -1,10 +1,28 @@
 <x-layout title="{{$turma->nome}} - Alunos">
+    <br>
+<h3>Adicionar Aluno a Turma:</h3>
+   <form class="needs-validation"  action="/turmas/{{$turma->id}}/alunos" method="get">
+       @csrf
+       <div class="row g-3">
+           <div class="col-sm-5">
+            <input type="hidden" name="turma_id" value="{{$turma->id}}">
+              <input type="text" name="search" id="search" class="form-control" placeholder="Buscar Aluno">
+            </div>  
+               <div class="col-3 align-self-end">
+                   <button class="btn btn-outline-primary btn-store" type="submit">Buscar Aluno</button>
+               </div>              
+          
+        </div>
+  </form>
+  <br><br><hr>
+   @if ($search)
     <form class="needs-validation" action="{{ route('turma.aluno.store') }}" method="post">
         @csrf
         <div class="row g-3">
             <input type="hidden" name="turma_id" value="{{$turma->id}}">
             <div class="col-sm-5">
-                <label class="form-label">*Alunos</label>
+          
+                <label class="form-label">Resultado buscando por: {{ $search }}</label>
                 <select class="form-select" id="aluno_id" name="aluno_id">
                     <option value="0">Selecione...</option>
                     @foreach ($todosAlunos as $listaAluno)
@@ -18,9 +36,12 @@
             </div>
         </div>
     </form>
-    <br>
+    @endif
 
-    <table class="display table table-striped" style="width:100%">
+    <br>
+    <h3>Alunos da turma:</h3>
+
+    <table id="tableAlunosPoTurma" class="display table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Nome</th>
