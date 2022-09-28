@@ -12,6 +12,8 @@ use App\Http\Controllers\TurmaController;
 use App\Http\Controllers\TurmaProfessorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\FrequenciaController;
+use App\Http\Controllers\AulasController;
 
 use App\Models\Modulo;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,12 @@ Route::get('login', [LoginController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
 Route::post('autenticate', [LoginController::class, 'autenticate']);
 
+//Aulas
+Route::get('frequencia', [AulasController::class, 'index']);
+Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
+
+
+
 // Resources
 Route::resource('professores',ProfessoresController::class)->names('professor')->parameters(['professores'=>'professor']);
 Route::resource('alunos',AlunosController::class)->names('aluno')->parameters(['alunos'=>'aluno']);
@@ -48,6 +56,7 @@ Route::resource('horarios',HorarioController::class)->names('horario')->paramete
 
 // TURMAS
 Route::resource('turmas',TurmaController::class)->names('turma')->parameters(['turmas'=>'turma']);
+
     // Alunos
     Route::get('/turmas/{turma}/alunos',[TurmaController::class,'alunos'])->name('turma.aluno.show');
   
@@ -68,3 +77,22 @@ Route::get('/getmodulo/{id}', function ($id) {
         echo '<option value="'.$modulo->id .'">' .$modulo->nome.'</option>';
     }
 })->name('get.modulo');
+
+Route::get('/getturma/{id}', function ($id) {
+    $result = DB::table('turmas')->where('curso', $id)->get();
+    echo '<option value="0">Selecione...</option>';
+    foreach ($result as $turma) {
+        echo '<option value="'.$turma->id .'">' .$turma->nome.'</option>';
+    }
+})->name('get.turma');
+
+Route::get('/getdisciplina/{id}', function ($id) {
+    $result = DB::table('turma_professor')->where('turma_id', $id)->get();
+    echo '<option value="0">Selecione...</option>';
+    foreach ($result as $turma) {
+        echo '<option value="'.$turma->id .'">' .$turma->disciplina.'</option>';
+    }
+})->name('get.disciplina');
+
+
+

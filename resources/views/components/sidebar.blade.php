@@ -85,7 +85,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="navs disabled btn-sm">
+                <a href="/frequencia" class="navs btn-sm">
                     <img src="{{ asset('icons/frequencia.png') }}" style="width: 15%" />
                     Frequências
                 </a>
