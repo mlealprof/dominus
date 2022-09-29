@@ -45,13 +45,12 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th class="text-end"></th>
+                <th class="text-end">Ação</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($alunos as $aluno)
             <tr>
-
                 @foreach ($todosAlunos as $listaAluno)
                     @if($listaAluno->id == $aluno->aluno_id)
                         <td>{{ $listaAluno->nome }}</td>

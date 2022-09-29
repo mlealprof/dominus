@@ -39,8 +39,11 @@ Route::get('home', [HomeController::class, 'index']);
 Route::post('autenticate', [LoginController::class, 'autenticate']);
 
 //Aulas
-Route::get('frequencia', [AulasController::class, 'index']);
+Route::get('aulas', [AulasController::class, 'index']);
 Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
+
+
+Route::get('/aula/nova', [AulaController::class,'nova'])->name('aula.show');
 
 
 
@@ -93,6 +96,22 @@ Route::get('/getdisciplina/{id}', function ($id) {
         echo '<option value="'.$turma->id .'">' .$turma->disciplina.'</option>';
     }
 })->name('get.disciplina');
+
+
+
+Route::get('/getprofessor/{id}', function ($id) {
+    $result = DB::table('professores')->where('id', $id)->get();
+    
+    foreach ($result as $prof) {
+        echo $prof->nome;
+    }
+})->name('get.professor');
+
+
+
+
+
+
 
 
 

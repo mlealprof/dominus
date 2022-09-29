@@ -9,9 +9,8 @@
             <thead>
                 <tr>
                     <th>Matricula</th>
-                    <th>Nome</th>
-                    <th>Turma</th>
-                    <th>Email</th>
+                    <th>Nome</th>                    
+                    <th>CPF</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -20,8 +19,8 @@
                 <tr>
                     <td>{{ $aluno->matricula }}</td>
                     <td>{{ $aluno->nome }}</td>
-                    <td></td>
-                    <td>{{ $aluno->email }}</td>
+                    
+                    <td>{{ $aluno->cpf }}</td>
                     <td>
                         <a href="{{ url('alunos\/') .$aluno->id .'/editar'}}" class="btn btn-outline-secondary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"

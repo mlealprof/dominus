@@ -81,13 +81,13 @@
             <li>
                 <a href="" class="navs disabled btn-sm">
                     <img src="{{ asset('icons/notas.png') }}" style="width: 15%" />
-                    Notas
+                    Atividades
                 </a>
             </li>
             <li>
-                <a href="/frequencia" class="navs btn-sm">
+                <a href="/aulas" class="navs btn-sm">
                     <img src="{{ asset('icons/frequencia.png') }}" style="width: 15%" />
-                    Frequências
+                    Aulas
                 </a>
             </li>
             <li>

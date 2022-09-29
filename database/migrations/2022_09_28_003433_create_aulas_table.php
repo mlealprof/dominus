@@ -19,7 +19,7 @@ class CreateAulasTable extends Migration
             $table->integer('curso_id')->unsigned();
             $table->integer('disciplina_id')->unsigned();
             $table->integer('professor_id')->unsigned();            
-            $table->string('data');
+            $table->date('data');
             $table->string('conteudo')->nullable(true);
             $table->timestamps();
         });

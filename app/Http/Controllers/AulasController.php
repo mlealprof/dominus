@@ -24,15 +24,55 @@ class AulasController extends Controller
     {
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = TurmaProfessor::query()->orderBy('disciplina')->get();   
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $aulas = Aulas::query()->orderBy('data') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
         return view('frequencia.index',[
             'turmas' => $turmas,
             'cursos' => $cursos,            
-            'disciplinas' => $disciplinas
+            'disciplinas' => $disciplinas,
+            'aulas' => $aulas,
+            'professores' => $professores
         ]);
     }
+
+   public function nova()
+    {
+        $turmas = Turma::query()->orderBy('id')->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $disciplinas = Disciplina::query()->orderBy('nome')->get();  
+        $aulas = Aulas::query()->orderBy('data') ->get();
+      
+        $professores = Professor::query()->orderBy('nome')->get();
+
+        return view('frequencia.create',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'aulas' => $aulas,
+            'professores' => $professores
+        ]);
+    }
+
+    public function show(){
+        $turmas = Turma::query()->orderBy('id')->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $aulas = Aulas::query()->orderBy('data') ->get();
+      
+        $professores = Professor::query()->orderBy('nome')->get();
+        
+        return view('frequencia.create',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'aulas' => $aulas,
+            'professores' => $professores
+        ]);
+    }
+
+
     public function store(Request $request)
     {
         $aulas = new Aulas();
