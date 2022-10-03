@@ -50,8 +50,7 @@ Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store'
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
 
-Route::post('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
-Route::post('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
+
 
 Route::get('/aula/nova', [AulaController::class,'nova'])->name('aula.show');
 

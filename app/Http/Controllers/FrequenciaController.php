@@ -120,17 +120,7 @@ public function store($id)
 
         $frequencias = DB::table('frequencia')->where('aulas_id', $frequencia->aulas_id)->get();
 
-        return view('frequencia.frequencia',[
-        'alunos' => $alunos,
-        'frequencias' => $frequencias,
-        'aulas' => $aulas,            
-        'turmas' => $turmas,
-        'cursos' => $cursos,
-        'disciplinas' => $disciplinas,
-        'professores' => $professores,
-        'id' => $frequencia->aulas_id
-        
-         ]);
+        return redirect('aulas/frequencia/'.$id);
     }
 
        public function updateNao($id,$frequencia_id)
@@ -151,7 +141,7 @@ public function store($id)
         $frequencia->save();    
         $rota = 'aulas/frequencia/'.$id;
         $frequencias = DB::table('frequencia')->where('aulas_id', $frequencia->aulas_id)->get();
-        return redirect('aulas/frequencia/12');
+        return redirect('aulas/frequencia/'.$id);
         
    
     }
