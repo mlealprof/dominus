@@ -1,4 +1,4 @@
-<x-layout title="Modulos">
+<x-layout title="Módulos">
     <form class="needs-validation" action="{{ route('modulo.store') }}" method="post">
         @csrf
         <div class="row g-3">
@@ -13,11 +13,11 @@
                 </select>
             </div>
             <div class="col-sm-5">
-                <label class="form-label">*Nome do modulo</label>
+                <label class="form-label">*Nome do módulo</label>
                 <input type="text" class="form-control" id="nome" name="nome" required disabled>
             </div>
             <div class="col-2 align-self-end">
-                <button class="btn btn-outline-primary" type="submit" disabled id="btnNovo">Cadastrar modulo</button>
+                <button class="btn btn-outline-primary" type="submit" disabled id="btnNovo">Cadastrar módulo</button>
             </div>
         </div>
     </form>
@@ -27,7 +27,7 @@
         <thead>
             <tr>
                 <th>Curso</th>
-                <th>Modulo</th>
+                <th>Módulo</th>
                 <th></th>
             </tr>
         </thead>

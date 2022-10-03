@@ -103,9 +103,11 @@
                     <td>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}}</td>
                    <td class="text-end">
                     <div class="">
-                        <a href="" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>                        
-                        <a href="#" class="btn btn-outline-secondary btn-sm btn-editar"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"> 
+                        <a href="aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>                        
+                        <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aula->curso_id }}" data-turma="{{ $aula->turma_id }}"  data-disciplina="{{ $aula->disciplina_id }}" data-professor="{{ $aula->professor_id }}" data-data="{{ $aula->data }}" data-conteudo="{{ $aula->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aula]) }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                        <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"data-aula="{{ $aula->id }}" data-rota="{{ route('aulas.destroy',['aula'=>$aula]) }}"> 
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -118,11 +120,109 @@
 
 
 
+   <!-- Modal editar Aula - Inicio -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Aula </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form class="needs-validation" action="" method="post" id="formEditar">
+              <div class="modal-body">
+                  @csrf
+                  @method('put')
+                  <div class="row g-3">
+                      <div class="col-sm-12">
+                          <label class="form-label">*Curso</label>
+                          <select class="form-select" id="editarCurso" name="curso_id" value="teste">
+                              <option value="0">Selecione</option>
+                              @foreach ($cursos as $curso)
+                                  <option value="{{$curso->id}}">{{$curso->nome}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                      <div class="col-sm-12">
+                          <label class="form-label">*Turma</label>
+                          <select class="form-select" id="editarTurma" name="turma_id">
+                              <option value="0">Selecione</option>
+                              @foreach ($turmas as $turma)
+                                  <option value="{{$turma->id}}">{{$turma->nome}}</option>
+                              @endforeach
+                          </select>
+                     </div>
+                      <div class="col-sm-12">
+                      <label class="form-label">*Disciplina</label>
+                      <select class="form-select" id="editarDisciplina" name="disciplina_id">
+                          <option value="0">Selecione</option>
+                          @foreach ($disciplinas as $disciplina)
+                              <option value="{{$disciplina->id}}">{{$disciplina->nome}}</option>
+                          @endforeach
+                      </select>
+                     </div>
+                     <div class="col-sm-12">
+                          <label class="form-label">*Professor</label>
+                          <select class="form-select" id="editarProfessor" name="professor_id">
+                              <option value="0">Selecione</option>
+                              @foreach ($professores as $professor)
+                                  <option value="{{$professor->id}}">{{$professor->nome}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                      
+                      <div class="col-sm-12">
+                          <label class="form-label">*Data</label>
+                          <input type="date" class="form-control" name="data" id="editarData"required>
+                      </div>
+                      <div class="col-sm-12">
+                          <label class="form-label">*Conteúdo</label>
+                          <input type="text" class="form-control" name="conteudo" id="editarConteudo"required>
+                      </div>
+
+                  </div>
+              </div>
+              
+              <div class="modal-footer">
+                <button class="btn btn btn-primary" type="submit">Salvar</button>
+              </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal editar Aula - Fim -->
+
+ <!-- Modal excluir - Inicio -->
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Excluir Aula</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">Confirma a exclusão da Aula?</p>
+            <h3 class="text-center" id="modalExcluirNome"></h3>
+            <p class="text-muted text-center">Não será possivel recuperar o registro.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <form id="formDelete" class="" action="" method="post">
+                @csrf
+                @method('delete')
+                <button class="btn btn btn-danger" type="submit">Excluir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal excluir - Fim -->
+
 
 
 
     <script type="text/javascript">
-    /* SCRIPTS - CADASTRO DE NOVA TURMA - INICIO */
+    /* SCRIPTS - CADASTRO DE NOVA AULA - INICIO */
 
       // Valida o campo curso
       $('#curso_id').change(function(e){
@@ -200,9 +300,13 @@
       }
 
 
-$('#turma_id').val()
+$('#aula_id').val()
 
-      /* SCRIPTS - CADASTRO DE NOVA TURMA - FIM */
+      /* SCRIPTS - CADASTRO DE NOVA AULA - FIM */
+
+
+
+
 
       //Excluir Registro
       $( ".btn-excluir" ).on( "click", function() {
@@ -211,17 +315,29 @@ $('#turma_id').val()
           $('#modalExcluir').modal('show');
       });
 
-      /* SCRIPTS - EDITAR TURMA - INICIO */
+
+
+      /* SCRIPTS - EDITAR AULA - INICIO */
       //Editar Turma Capa
       $( ".btn-editar" ).on( "click", function() {
           $('#formEditar').attr('action',$(this).data("rota"))
-          $('#editarNome').val($(this).data('nome'))
           $('#editarCurso').val($(this).data('curso'))
-          $('#editarModulo').val($(this).data('modulo'))
+          $('#editarDisciplina').val($(this).data('disciplina'))
+          $('#editarTurma').val($(this).data('turma'))
+          $('#editarProfessor').val($(this).data('professor'))
+          $('#editarData').val($(this).data('data'))
+          $('#editarConteudo').val($(this).data('conteudo'))                   
           $('#modalEditar').modal('show');
       });
 
 
+
+      //Excluir Registro
+      $( ".btn-excluir" ).on( "click", function() {
+          $('#formDelete').attr('action',$(this).data("rota"))
+          $('#modalExcluirNome').html($(this).data('nome'))
+          $('#modalExcluir').modal('show');
+      });
 
        $( "#editarNome" )
          .keyup(function() {

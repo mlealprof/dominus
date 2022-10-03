@@ -38,17 +38,18 @@
 
             <div class="col-sm-7">
                 <label class="form-label">*Professor</label>
-                <input type="text" class="form-control   " name="professor_id" id="professor_id" disabled>
+                <input type="text" class="form-control   " name="professor" id="professor" disabled>
+                <input type="hidden" class="form-control   " name="professor_id" id="professor_id"  >
             </div>
 
             <div class="col-sm-4">
                 <label class="form-label">*Data</label>
-                <input type="date" class="form-control  "   name="data" >
+                <input type="date" class="form-control  "   name="data"  id="data">
             </div>
 
             <div class="col-sm-9">
                 <label class="form-label">Conteúdo</label><br>
-                <input type="text" class="form-control" name="conteudo" >
+                <input type="text" class="form-control" name="conteudo" id="conteudo" >
 
             </div>
 
@@ -108,13 +109,38 @@
           let value = $('#turma_id').val()
           if (value > 0) {
               $(this).addClass('is-valid')
-              $( "#btnNovo" ).prop( "disabled", false ).focus();
+              $("#data").focus();
               addProfessor(value)
           } else {
-              $(this).removeClass('is-valid')
-              $( "#btnNovo" ).val('').prop( "disabled", true );
+              $(this).removeClass('is-valid')              
           }
       });
+
+
+
+
+      //Validando Data
+       $('#data').change(function(e){
+
+              $(this).addClass('is-valid')             
+              $("#conteudo").focus()
+     
+      });
+
+      // Valida o campo Conteúdo
+      $('#conteudo').change(function(e){
+          let value = ($('#conteudo').val()).length
+          if (value > 3) {
+              $(this).addClass('is-valid')
+              $( "#btnNovo" ).prop( "disabled", false ).focus();
+          } else {
+              $(this).removeClass('is-valid')              
+          }
+      });
+
+
+
+
 
       // Adiciona Disciplina de Acordo com a turma escolhido
       function addDisciplinaNovo(turma){
@@ -125,11 +151,17 @@
       }
 
 
+
+
+
+
+
       // Adiciona Professor de Acordo com a disciplina escolhido
       function addProfessor(professor){         
            let url = "{{url('/getprofessor')}}/"+professor;
           $.get( url, function( data ) {
-              $('#professor_id').val(data);
+              $('#professor').val(data);
+              $('#professor_id').val(professor);
           });          
                        
       }

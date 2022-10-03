@@ -44,18 +44,6 @@
                 </a>
             </li>
             <li>
-                <a href="/turmas" class="navs">
-                    <img src="{{ asset('icons/classe.png') }}" style="width: 15%" />
-                    Turma
-                </a>
-            </li>
-            <li>
-                <a href="/disciplinas" class="navs">
-                    <img src="{{ asset('icons/disciplina.png') }}" style="width: 15%" />
-                    Disciplina
-                </a>
-            </li>
-            <li>
                 <a href="/cursos" class="navs">
                     <img src="{{ asset('icons/cursos.png') }}" style="width: 15%" />
                     Curso
@@ -65,6 +53,18 @@
                 <a href="/modulos" class="navs">
                     <img src="{{ asset('icons/cursos.png') }}" style="width: 15%" />
                     Módulo
+            </a>
+            </li>
+            <li>
+                <a href="/disciplinas" class="navs">
+                    <img src="{{ asset('icons/disciplina.png') }}" style="width: 15%" />
+                    Disciplina
+                </a>
+            </li>
+            <li>
+                <a href="/turmas" class="navs">
+                    <img src="{{ asset('icons/classe.png') }}" style="width: 15%" />
+                    Turma
                 </a>
             </li>
             <li>

@@ -39,11 +39,22 @@ Route::get('home', [HomeController::class, 'index']);
 Route::post('autenticate', [LoginController::class, 'autenticate']);
 
 //Aulas
-Route::get('aulas', [AulasController::class, 'index']);
+// Route::get('aulas', [AulasController::class, 'index']);
 Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
+//Route::resource('aulas/frequencia/{id}',FrequenciaController::class)->names('index')->parameters(['id'=>'id']);
+Route::get('aulas/frequencia/{id}', [FrequenciaController::class, 'index'])->name('aulas.frequencia.show');
 
+Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
+Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
+
+Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
+Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
+
+Route::post('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
+Route::post('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
 
 Route::get('/aula/nova', [AulaController::class,'nova'])->name('aula.show');
+
 
 
 

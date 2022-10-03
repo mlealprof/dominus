@@ -15,7 +15,7 @@ use App\Models\TurmaProfessor;
 use App\Models\Horario;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 use App\Models\Estado;
 
 class AulasController extends Controller
@@ -25,7 +25,7 @@ class AulasController extends Controller
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $aulas = Aulas::query()->orderBy('data') ->get();
+        $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
         return view('frequencia.index',[
@@ -42,7 +42,7 @@ class AulasController extends Controller
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('nome')->get();  
-        $aulas = Aulas::query()->orderBy('data') ->get();
+        $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
 
@@ -59,7 +59,7 @@ class AulasController extends Controller
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $aulas = Aulas::query()->orderBy('data') ->get();
+        $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
         
@@ -86,4 +86,32 @@ class AulasController extends Controller
 
         return redirect('aulas');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Aulas $aula)
+    {
+        $aula->turma_id = $request->turma_id;
+        $aula->curso_id = $request->curso_id;
+        $aula->disciplina_id = $request->disciplina_id;
+        $aula->professor_id = $request->professor_id;
+        $aula->data = $request->data;
+        $aula->conteudo = $request->conteudo;
+        $aula->save();
+
+        return redirect('aulas');
+    }
+    public function destroy(Aulas $aula)
+    {
+        $aula->delete();
+        return redirect('aulas');
+    }
+
+
+
 }
