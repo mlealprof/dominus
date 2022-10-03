@@ -85,17 +85,7 @@ public function store($id)
 
 
 
-        return view('frequencia.frequencia',[
-        'alunos' => $alunos,
-        'frequencias' => $frequencias,
-        'aulas' => $aulas,            
-        'turmas' => $turmas,
-        'cursos' => $cursos,
-        'disciplinas' => $disciplinas,
-        'professores' => $professores,
-        'id' => $id
-        
-         ]);
+        return redirect('aulas/frequencia/'.$id);
        
     }
 
