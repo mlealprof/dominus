@@ -29,10 +29,7 @@
                 <label class="form-label">*Disciplina</label>
                 <select class="form-select" id="disciplina_id" name="disciplina_id" disabled >
                     <option value="0">Selecione...</option>
-                   @foreach ($disciplinas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->disciplina}}</option>
-                    @endforeach
-                    
+                                
                 </select>
             </div>
 
@@ -110,7 +107,7 @@
           if (value > 0) {
               $(this).addClass('is-valid')
               $("#data").focus();
-              addProfessor(value)
+              addProfessor($('#disciplina_id').val())
           } else {
               $(this).removeClass('is-valid')              
           }
@@ -143,9 +140,10 @@
 
 
       // Adiciona Disciplina de Acordo com a turma escolhido
-      function addDisciplinaNovo(turma){
-          let url = "{{url('/getdisciplina')}}/"+turma;
-          $.get( url, function( data ) {
+      function addDisciplinaNovo(turma){ 
+
+          let url = "{{url('/getdisciplina')}}/"+turma;          
+          $.get( url, function(data) {
               $('#disciplina_id').html(data);
           });
       }

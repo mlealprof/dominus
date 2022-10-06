@@ -99,19 +99,24 @@ Route::get('/getturma/{id}', function ($id) {
     }
 })->name('get.turma');
 
-Route::get('/getdisciplina/{id}', function ($id) {
-    $result = DB::table('turma_professor')->where('turma_id', $id)->get();
-    echo '<option value="0">Selecione...</option>';
-    foreach ($result as $turma) {
-        echo '<option value="'.$turma->id .'">' .$turma->disciplina.'</option>';
-    }
+Route::get('/getdisciplina/{id}', function ($id) {    
+
+    $resultados = DB::table('turma_professor')->where('turma_id', $id)->get();
+
+    echo '<option value="0">Selecione...</option>';       
+    foreach ($resultados as $turma) {
+        $disciplinas = DB::table('disciplinas')->where('id', $turma->disciplina_id)->get();
+        foreach ($disciplinas as $disciplina){
+           echo '<option value="'.$turma->professor_id.'">' .$disciplina->nome.'</option>';                
+        }
+   }      
 })->name('get.disciplina');
 
 
 
 Route::get('/getprofessor/{id}', function ($id) {
+
     $result = DB::table('professores')->where('id', $id)->get();
-    
     foreach ($result as $prof) {
         echo $prof->nome;
     }

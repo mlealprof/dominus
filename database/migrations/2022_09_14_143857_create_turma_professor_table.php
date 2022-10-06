@@ -17,6 +17,8 @@ class CreateTurmaProfessorTable extends Migration
             $table->id();
             $table->integer('turma_id')->unsigned();
             $table->integer('professor_id')->unsigned();
+            $table->integer('disciplina_id')->unsigned();
+            $table->string('dia_semana');
             $table->timestamps();
         });
     }

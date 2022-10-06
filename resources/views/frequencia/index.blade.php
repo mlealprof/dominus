@@ -6,7 +6,7 @@
         </div>
     </div>
 
-
+<!--
     <form class="needs-validation mb-3" action="{{route('aulas.store')}}" method="post">
         @csrf
         <div class="row g-3 border rounded-3 pb-3 user-select-none">
@@ -64,6 +64,8 @@
             </div>
         </div>
     </form>
+
+-->
 
 <table id="tableAulas" class="display table table-striped" style="width:100%">
             <thead>
@@ -269,7 +271,7 @@
           if (value > 0) {
               $(this).addClass('is-valid')              
               $( "#btnNovo" ).prop( "disabled", false ).focus();
-              addProfessor(value)
+              addProfessor($('#disciplina_id').val())
           } else {
               $(this).removeClass('is-valid')
               $( "#btnNovo" ).val('').prop( "disabled", true );

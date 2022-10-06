@@ -17,7 +17,7 @@
                 <select class="form-select" id="disciplina" name="disciplina">
                     <option value="0">Selecione...</option>
                     @foreach ($disciplinas as $disciplina)
-                        <option value="{{$disciplina->nome}}">{{$disciplina->nome}}</option>
+                        <option value="{{$disciplina->id}}">{{$disciplina->nome}}</option>
                     @endforeach
                 </select>
             </div>
