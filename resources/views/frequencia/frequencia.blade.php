@@ -57,7 +57,7 @@
 
        </form>
        
-        <table id="tableAlunosPoTurma" class="display table table-striped" style="width:100%">
+        <table id="tableAlunosPoTurma" class="displa table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Nome</th>

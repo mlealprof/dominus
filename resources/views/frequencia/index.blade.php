@@ -73,7 +73,7 @@
                     <th>Curso</th>
                     <th>Turma</th>
                     <th>Disciplina</th>
-                    <th>Data Aula</th>
+                    <th>Data Aula</th>                    
                     <th>Ação</th>
                 </tr>
             </thead>

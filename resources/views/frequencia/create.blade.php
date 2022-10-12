@@ -117,12 +117,12 @@
 
 
       //Validando Data
-       $('#data').change(function(e){
+    //   $('#data').change(function(e){
 
-              $(this).addClass('is-valid')             
-              $("#conteudo").focus()
+    //          $(this).addClass('is-valid')             
+   //           $("#conteudo").focus()
      
-      });
+   //   });
 
       // Valida o campo Conteúdo
       $('#conteudo').change(function(e){
