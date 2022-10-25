@@ -41,7 +41,7 @@ Route::get('home', [HomeController::class, 'index']);
 Route::post('autenticate', [LoginController::class, 'autenticate']);
 
 //Aulas
-// Route::get('aulas', [AulasController::class, 'index']);
+
 Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
 Route::get('aulas/frequencia/{id}', [FrequenciaController::class, 'index'])->name('aulas.frequencia.show');
 Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
@@ -55,10 +55,17 @@ Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::c
 
 
 //Atividades
-Route::resource('atividades',AtividadeController::class)->names('atividades')->parameters(['atividades'=>'atividades']);
+Route::resource('atividades',AtividadeController::class)->names('index')->parameters(['atividades'=>'atividades']);
 Route::get('/atividades/nova', [AtividadeController::class,'nova'])->name('atividade.show');
 Route::post('/atividades/nova', [AtividadeController::class,'store'])->name('atividade.store');
+Route::put('atividades/alterar/{id}', [AtividadeController::class, 'update','$id']);
+Route::delete('atividades/excluir/{id}', [AtividadeController::class,'destroy','$id']);
+
+
+
 Route::get('atividades/notas/{id}', [NotasController::class, 'index'])->name('atividades.notas.show');
+
+
 
 Route::post('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
 Route::get('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
@@ -138,12 +145,3 @@ Route::get('/getprofessor/{id}', function ($id) {
 
    }   
 })->name('get.professor');
-
-
-
-
-
-
-
-
-

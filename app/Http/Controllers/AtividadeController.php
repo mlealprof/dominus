@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Estado;
 use App\Models\Atividade;
+use App\Models\Notas;
+
 
 
 
@@ -86,5 +88,34 @@ class AtividadeController extends Controller
         $atividade->save();
 
         return redirect('atividades');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $atividade=Atividade::findOrFail($id);
+        $atividade->turma_id = $request->turma_id;
+        $atividade->curso_id = $request->curso_id;
+        $atividade->disciplina_id = $request->disciplina_id;        
+        $atividade->data = $request->data;
+        $atividade->conteudo = $request->conteudo;
+        $atividade->valor = $request->valor;
+        $atividade->save();
+
+        return redirect('atividades');
+    }
+    public function destroy($id)
+    {
+       $notas = Notas::all();
+       foreach ($notas as $nota){
+        if ($nota->atividade_id == $id){
+            $nota->delete();
+        }
+       }
+
+        $atividade = Atividade::findOrFail($id);
+        $atividade->delete();
+        return redirect('atividades');
+
+
     }
 }
