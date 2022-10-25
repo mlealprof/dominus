@@ -14,6 +14,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\FrequenciaController;
 use App\Http\Controllers\AulasController;
+use App\Http\Controllers\NotasController;
+use App\Http\Controllers\AtividadeController;
 
 use App\Models\Modulo;
 use Illuminate\Support\Facades\Route;
@@ -41,18 +43,29 @@ Route::post('autenticate', [LoginController::class, 'autenticate']);
 //Aulas
 // Route::get('aulas', [AulasController::class, 'index']);
 Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
-//Route::resource('aulas/frequencia/{id}',FrequenciaController::class)->names('index')->parameters(['id'=>'id']);
 Route::get('aulas/frequencia/{id}', [FrequenciaController::class, 'index'])->name('aulas.frequencia.show');
-
 Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
 Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
-
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
 
 
 
-Route::get('/aula/nova', [AulaController::class,'nova'])->name('aula.show');
+
+
+
+//Atividades
+Route::resource('atividades',AtividadeController::class)->names('atividades')->parameters(['atividades'=>'atividades']);
+Route::get('/atividades/nova', [AtividadeController::class,'nova'])->name('atividade.show');
+Route::post('/atividades/nova', [AtividadeController::class,'store'])->name('atividade.store');
+Route::get('atividades/notas/{id}', [NotasController::class, 'index'])->name('atividades.notas.show');
+
+Route::post('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
+Route::get('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
+Route::post('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
+Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
+
+
 
 
 
@@ -107,19 +120,23 @@ Route::get('/getdisciplina/{id}', function ($id) {
     foreach ($resultados as $turma) {
         $disciplinas = DB::table('disciplinas')->where('id', $turma->disciplina_id)->get();
         foreach ($disciplinas as $disciplina){
-           echo '<option value="'.$turma->professor_id.'">' .$disciplina->nome.'</option>';                
+           echo '<option value="'.$turma->disciplina_id.'">' .$disciplina->nome.'</option>';                
         }
    }      
 })->name('get.disciplina');
 
 
 
-Route::get('/getprofessor/{id}', function ($id) {
+Route::get('/getprofessor/{id}', function ($id) {    
 
-    $result = DB::table('professores')->where('id', $id)->get();
-    foreach ($result as $prof) {
-        echo $prof->nome;
-    }
+    $resultados = DB::table('turma_professor')->where('disciplina_id', $id)->get();     
+    foreach ($resultados as $turma) {
+        $professores = DB::table('professores')->where('id', $turma->professor_id)->get();      
+        foreach($professores as $professor){
+          echo '<option value="'.$turma->professor_id.'">'.$professor->nome.'</option>';  
+        }
+
+   }   
 })->name('get.professor');
 
 

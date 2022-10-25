@@ -69,10 +69,8 @@ public function store($id)
             }
         }
     
-        foreach ($alunos_turma as $turma){    
-               
-            if ($turma->turma_id == $turma_id){
-                   
+        foreach ($alunos_turma as $turma){                   
+            if ($turma->turma_id == $turma_id){                   
                     $frequencia = new Frequencia() ;
                     $frequencia->aluno_id = $turma->aluno_id;
                     $frequencia->aulas_id = $id;

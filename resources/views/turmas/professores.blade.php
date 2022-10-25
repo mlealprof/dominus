@@ -14,7 +14,7 @@
             </div>
             <div class="col-sm-3">
                 <label class="form-label">*Disciplina</label>
-                <select class="form-select" id="disciplina" name="disciplina">
+                <select class="form-select" id="disciplina_id" name="disciplina_id">
                     <option value="0">Selecione...</option>
                     @foreach ($disciplinas as $disciplina)
                         <option value="{{$disciplina->id}}">{{$disciplina->nome}}</option>
@@ -71,9 +71,17 @@
                 @foreach ($todosProfessores as $listaProfessor)
                     @if($listaProfessor->id == $professor->professor_id)
                         <td>{{ $listaProfessor->nome }}</td>
-                        <td>{{$professor->disciplina}}</td>
-                        <td>{{$professor->dia_semana}}</td>
-                        <td>{{$professor->horario}}</td>
+
+                        @foreach ($disciplinas as $disciplina)
+                                  @if($disciplina->id == $professor->disciplina_id)
+                                    <td> {{$disciplina->nome}}</td>
+                                  @endif
+                        @endforeach
+
+
+                            
+                        <td></td>
+                        <td></td>
                         <td class="text-end">
                             <a href="#" class="btn btn-danger btn-sm btn-excluir" data-nome="{{$listaProfessor->nome}}" data-rota="{{ route('turma.professor.destroy',['turma'=>$turma,'professor'=>$professor->id]) }}">
                                 <i class="fa fa-trash" aria-hidden="true"></i>

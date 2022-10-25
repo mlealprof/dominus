@@ -1,9 +1,9 @@
-<x-layout title="Nova Aula">
+<x-layout title="Nova Atividade">
 
-    <form class="needs-validation mb-3" action="{{route('aulas.store')}}" method="post">
+    <form class="needs-validation mb-3" action="{{route('atividade.store')}}" method="post">
         @csrf
         <div class="row g-3 border rounded-3 pb-3 user-select-none">
-            <h5 class="text-primary">Criar nova Aula</h5>
+            <h5 class="text-primary">Criar nova Atividade</h5>
             <div class="col-sm-3">
                 <label class="form-label">*Curso</label>
                 <select class="form-select" id="curso_id" name="curso_id">
@@ -47,9 +47,14 @@
                 <input type="date" class="form-control  "   name="data"  id="data">
             </div>
 
-            <div class="col-sm-9">
+            <div class="col-sm-7">
                 <label class="form-label">Conteúdo</label><br>
                 <input type="text" class="form-control" name="conteudo" id="conteudo" >
+
+            </div>
+            <div class="col-sm-2">
+                <label class="form-label">Valor Total</label><br>
+                <input type="text" class="form-control" name="valor" id="valor" >
 
             </div>
 
@@ -57,7 +62,7 @@
 
 
             <div class="col-sm-2 align-self-end text-end ">
-                <button class="btn btn-outline-primary" type="submit" id="btnNovo" disabled>Cadastrar Aula</button>
+                <button class="btn btn-outline-primary" type="submit" id="btnNovo" disabled>Cadastrar Atividade</button>
             </div>
         </div>
     </form>
@@ -132,13 +137,22 @@
           let value = ($('#conteudo').val()).length
           if (value > 3) {
               $(this).addClass('is-valid')
-              $( "#btnNovo" ).prop( "disabled", false ).focus();
+              $("#valor").focus();
           } else {
               $(this).removeClass('is-valid')              
           }
       });
 
-
+      // Valida o campo Valor Total
+      $('#valor').change(function(e){
+          let value = ($('#valor').val()).length
+          if (value > 0) {
+              $(this).addClass('is-valid')
+              $( "#btnNovo" ).prop( "disabled", false ).focus();
+          } else {
+              $(this).removeClass('is-valid')              
+          }
+      });
 
 
 

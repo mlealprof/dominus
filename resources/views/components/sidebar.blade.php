@@ -79,7 +79,7 @@
         </h6>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="" class="navs disabled btn-sm">
+                <a href="/atividades" class="navs btn-sm">
                     <img src="{{ asset('icons/notas.png') }}" style="width: 15%" />
                     Atividades
                 </a>
