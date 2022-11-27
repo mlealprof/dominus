@@ -94,4 +94,28 @@ class NotasController extends Controller
        
         return redirect('atividades/notas/'.$nota->atividade_id);
     }
+
+    public function relatorios(){
+        $alunos = Aluno::all();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $notas = Notas::all();   
+        $professores = Professor::query()->orderBy('nome')->get();
+        $modulos = Modulo::all();
+        
+
+
+        return view('atividades.relatoriosnotas',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'atividades' => $atividades,
+            'professores' => $professores,       
+            'notas' => $notas,
+            'modulos' => $modulos,
+            'alunos' => $alunos
+        ]);
+    }
 }

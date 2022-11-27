@@ -72,6 +72,9 @@ Route::get('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id
 Route::post('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
 Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
 
+//RELATÓRIOS
+Route::get('relatoriosnotas', [NotasController::class, 'relatorios']);
+Route::post('/relatorios/geratargeta', [AtividadeController::class,'relatorio'])->name('atividade.relatorio');
 
 
 
@@ -102,6 +105,9 @@ Route::resource('turmas',TurmaController::class)->names('turma')->parameters(['t
 
 
 
+
+
+
 //Autocomplete
 Route::get('/getmodulo/{id}', function ($id) {
     $result = DB::table('modulos')->where('curso_id', $id)->get();
@@ -118,6 +124,17 @@ Route::get('/getturma/{id}', function ($id) {
         echo '<option value="'.$turma->id .'">' .$turma->nome.'</option>';
     }
 })->name('get.turma');
+
+
+Route::get('/getturmamodulo/{id}', function ($id) {
+    $turmas = DB::table('turmas')->where('modulo', $id)->get();
+    echo '<option value="0">Selecione...</option>';
+    foreach ($turmas as $turma) {
+        echo '<option value="'.$turma->id .'">' .$turma->nome.'</option>';
+    }
+})->name('get.turmamodulo');
+
+
 
 Route::get('/getdisciplina/{id}', function ($id) {    
 
@@ -145,3 +162,4 @@ Route::get('/getprofessor/{id}', function ($id) {
 
    }   
 })->name('get.professor');
+

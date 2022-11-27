@@ -63,7 +63,7 @@ class AtividadeController extends Controller
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
-       $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
         
@@ -117,5 +117,43 @@ class AtividadeController extends Controller
         return redirect('atividades');
 
 
+    }
+    public function relatorio(Request $request)
+    {
+        $alunos = Aluno::query()->orderBy('id')->get(); 
+        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $notas = Notas::all();   
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $modulos = Modulo::query()->orderBy('nome')->get();
+        $professores = Professor::query()->orderBy('nome')->get();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+    
+        
+
+      return view('atividades.gerataletas',[
+            'alunos' => $alunos,
+            'turmas_aluno' => $turmas_aluno,
+            'turmas' => $turmas,
+            'atividades' => $atividades,
+            'notas' => $notas,
+            'disciplina_id' => $disciplina_id,
+            'disciplinas' => $disciplinas,
+            'curso_id' => $curso_id,
+            'turma_id' => $turma_id,
+            'modulo_id' => $modulo_id,
+            'professor_id' => $professor_id,
+            'professores' => $professores,
+            'modulos' => $modulos,
+            'cursos' => $cursos
+
+            
+        ]);
     }
 }

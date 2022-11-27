@@ -39,7 +39,7 @@
             </li>
             <li>
                 <a href="/alunos" class="navs">
-                    <img src="{{ asset('icons/alunos.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/aluno.png') }}" style="width: 15%" />
                     Aluno
                 </a>
             </li>
@@ -51,25 +51,25 @@
             </li>
             <li>
                 <a href="/modulos" class="navs">
-                    <img src="{{ asset('icons/cursos.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/livro-didatico.png') }}" style="width: 15%" />
                     Módulo
             </a>
             </li>
             <li>
                 <a href="/disciplinas" class="navs">
-                    <img src="{{ asset('icons/disciplina.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/livro.png') }}" style="width: 15%" />
                     Disciplina
                 </a>
             </li>
             <li>
                 <a href="/turmas" class="navs">
-                    <img src="{{ asset('icons/classe.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/criancas.png') }}" style="width: 15%" />
                     Turma
                 </a>
             </li>
             <li>
                 <a href="/horarios" class="navs">
-                    <img src="{{ asset('icons/cursos.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/tempo.png') }}" style="width: 15%" />
                     Horários
                 </a>
             </li>
@@ -90,13 +90,27 @@
                     Aulas
                 </a>
             </li>
+
+        </ul>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Relatórios</span>
+        </h6>
+        <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="" class="navs disabled btn-sm">
-                    <img src="{{ asset('icons/relatorios.png') }}" style="width: 15%" />
-                    Relatórios
+                <a href="/relatoriosatividades" class="navs btn-sm">
+                    <img src="{{ asset('icons/presenca.png') }}" style="width: 15%" />
+                    Frequência
                 </a>
             </li>
+            <li>
+                <a href="/relatoriosnotas" class="navs btn-sm">
+                    <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
+                    Notas
+                </a>
+            </li>
+
         </ul>
+        
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Acessos</span>
         </h6>
