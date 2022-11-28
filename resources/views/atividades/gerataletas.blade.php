@@ -1,4 +1,4 @@
-<x-layout title="Taleta de Fechamento">
+<x-layout title="Taleta de Notas">
    <h4>Módulo: 
            @foreach ($modulos as $modulo)
               @if ($modulo->id == $modulo_id)
@@ -64,29 +64,39 @@
                     @foreach ($turmas_aluno as $aluno_turma)
                     <tr>  
                         @php
-                           $soma=0;
+                           $soma=0;                           
                         @endphp
-                        <td></td>
+                        
                          @if ($aluno_turma->turma_id == $turma_id)
                               @foreach ($alunos as $aluno)
                                   @if ($aluno->id == $aluno_turma->aluno_id)
+                                   <td></td>
                                     <td> {{$aluno->nome}}</td>
                                   @endif
                                              
                               @endforeach
                              @foreach ($atividades as $atividade)
                                    @if (($atividade->disciplina_id == $disciplina_id) and ($atividade->curso_id == $curso_id))
+                                      @php
+                                         $achou=false;
+                                      @endphp
                                       @foreach ($notas as $nota)
                                           @if (($nota->atividade_id == $atividade->id) and ($nota->aluno_id == $aluno_turma->aluno_id))
                                                      @php
                                                        $soma+=$nota->nota;
+                                                       $achou = true;
                                                     @endphp
                                                     <td align="center"> {{$nota->nota}}</td>
                                           @endif
                                     @endforeach
-                                   @endif
+                                    @if ($achou == false)
+                                         <td align="center">-</td>
+                                     @endif
 
+                                       
+                                   @endif
                              @endforeach 
+
                            <td align="center">{{$soma}}</td>
 
                          @endif

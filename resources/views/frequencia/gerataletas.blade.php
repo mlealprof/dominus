@@ -1,4 +1,4 @@
-<x-layout title="Taleta de Fechamento">
+<x-layout title="Taleta de Frequência">
    <h4>Módulo: 
            @foreach ($modulos as $modulo)
               @if ($modulo->id == $modulo_id)
@@ -25,7 +25,7 @@
     <h5>Disciplina: 
            @foreach ($disciplinas as $disciplina)
               @if ($disciplina->id == $disciplina_id)
-                 {{$disciplina->nome}}
+                 {{$disciplina->nome}}  - Carga Horária:{{$disciplina->carga_horaria}}h
               @endif
            @endforeach
 
@@ -46,52 +46,52 @@
                 <tr>
                     <th>N.º</th>
                     <th>Aluno</th> 
-                    @foreach ($atividades as $atividade)
-                       @if ( $atividade->disciplina_id == $disciplina_id)
+                       @foreach ($aulas as $aula)
+                       @if (( $aula->disciplina_id == $disciplina_id) and ($aula->turma_id == $turma_id))
                            
-                            <th >{{$atividade->conteudo}} <br> Valor: {{$atividade->valor  }} </th>  
+                            <th >{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}} </th>  
                             
                        @endif
-                    @endforeach   
-                           
-                                                        
-                    <th>Total</th>                                        
+                    @endforeach                  
+                    <th>Total Faltas</th>                                        
                 </tr>
             </thead>
             <tbody>
                     
-                
-                    @foreach ($turmas_aluno as $aluno_turma)
-                    <tr>  
-                        @php
-                           $soma=0;
-                        @endphp
-                        <td></td>
-                         @if ($aluno_turma->turma_id == $turma_id)
-                              @foreach ($alunos as $aluno)
-                                  @if ($aluno->id == $aluno_turma->aluno_id)
-                                    <td> {{$aluno->nome}}</td>
-                                  @endif
-                                             
-                              @endforeach
-                             @foreach ($atividades as $atividade)
-                                   @if (($atividade->disciplina_id == $disciplina_id) and ($atividade->curso_id == $curso_id))
-                                      @foreach ($notas as $nota)
-                                          @if (($nota->atividade_id == $atividade->id) and ($nota->aluno_id == $aluno_turma->aluno_id))
-                                                     @php
-                                                       $soma+=$nota->nota;
-                                                    @endphp
-                                                    <td align="center"> {{$nota->nota}}</td>
-                                          @endif
-                                    @endforeach
-                                   @endif
+                @foreach ($turmas_aluno as $aluno_turma)
+                    <tr>
+                    @if ($aluno_turma->turma_id == $turma_id)
+                        @foreach ($alunos as $aluno)
+                             @if ($aluno->id == $aluno_turma->aluno_id)
+                                  <td></td>
+                                  <td> {{$aluno->nome}}</td>
+                                  @php
+                                     $faltas=0;
+                                  @endphp
+                                  @foreach ($aulas as $aula)
+                                     @if (( $aula->disciplina_id == $disciplina_id) and ($aula->turma_id == $turma_id))
+                                        @foreach ($frequencias as $frequencia)                                        
+                                            @if (($frequencia->aulas_id == $aula->id)and($frequencia->aluno_id==$aluno_turma->aluno_id))
+                                               @if ($frequencia->presente == 1)
+                                                 <td align="center"> P </td>
+                                               @else
+                                                <td align="center"> F </td>
+                                                @php
+                                                   $faltas=$faltas + 1;
+                                                @endphp
+                                               @endif
 
-                             @endforeach 
-                           <td align="center">{{$soma}}</td>
-
-                         @endif
+                                            @endif
+                                        @endforeach 
+                                     @endif
+                                  @endforeach
+                                  <td align="center">{{$faltas}}</td>
+                             @endif                                                                  
+                        @endforeach
+                    @endif
+                    
                     </tr>
-                     @endforeach
+                @endforeach
                                             
       
                 
@@ -100,3 +100,5 @@
 
 
 </x-layout>
+
+

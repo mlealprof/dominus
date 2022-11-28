@@ -97,7 +97,7 @@
         </h6>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="/relatoriosatividades" class="navs btn-sm">
+                <a href="/relatoriosfrequencia" class="navs btn-sm">
                     <img src="{{ asset('icons/presenca.png') }}" style="width: 15%" />
                     Frequência
                 </a>

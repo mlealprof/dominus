@@ -133,5 +133,63 @@ public function store($id)
         
    
     }
+    public function relatorio()
+    {
+        $alunos = Aluno::all();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $disciplinas = Disciplina::query()->orderBy('id')->get(); 
+        $professores = Professor::query()->orderBy('nome')->get();
+        $modulos = Modulo::all();
+
+        return view('frequencia.relatoriosfrequencia',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'professores' => $professores,                  
+            'modulos' => $modulos,
+            'alunos' => $alunos
+        ]);
+    }
+
+    
+           public function taleta(Request $request)
+    {
+        $alunos = Aluno::query()->orderBy('id')->get(); 
+        $aulas = Aulas::query()->orderBy('id') ->get(); 
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $frequencias = Frequencia::all();
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $modulos = Modulo::query()->orderBy('nome')->get();
+        $professores = Professor::query()->orderBy('nome')->get();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+    
+        
+
+      return view('frequencia.gerataletas',[
+            'alunos' => $alunos,
+            'turmas_aluno' => $turmas_aluno,
+            'turmas' => $turmas,
+            'aulas' => $aulas,
+            'frequencias' => $frequencias,
+            'disciplina_id' => $disciplina_id,
+            'disciplinas' => $disciplinas,
+            'curso_id' => $curso_id,
+            'turma_id' => $turma_id,
+            'modulo_id' => $modulo_id,
+            'professor_id' => $professor_id,
+            'professores' => $professores,
+            'modulos' => $modulos,
+            'cursos' => $cursos
+
+            
+        ]);
+    }
 
 }

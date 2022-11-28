@@ -74,7 +74,9 @@ Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$
 
 //RELATÓRIOS
 Route::get('relatoriosnotas', [NotasController::class, 'relatorios']);
-Route::post('/relatorios/geratargeta', [AtividadeController::class,'relatorio'])->name('atividade.relatorio');
+Route::post('/relatorios/geratargetanotas', [AtividadeController::class,'relatorio'])->name('atividade.relatorio');
+Route::get('relatoriosfrequencia', [FrequenciaController::class, 'relatorio']);
+Route::post('/relatorios/geratargetafrequencia', [FrequenciaController::class,'taleta'])->name('frequencia.relatorio');
 
 
 

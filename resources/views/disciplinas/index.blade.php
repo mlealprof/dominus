@@ -12,12 +12,12 @@
                 </div>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <label class="form-label">*Sigla</label>
                 <input type="text" class="form-control" id="sigla" name="sigla" required disabled>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <label class="form-label">*Carga Horaria</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="cargaHoraria" name="carga_horaria" required disabled>
