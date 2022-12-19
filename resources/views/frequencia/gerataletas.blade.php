@@ -36,12 +36,13 @@
                  {{$professore->nome}}
               @endif
            @endforeach
+           <br>Quantidade de Aulas: {{$qtaulas}}
 
    </h5>
 
 
 
-<table id="taleta" class="table table-bordered">
+<table  id="taleta" class="table table-bordered">
             <thead>
                 <tr>
                     <th>N.º</th>
@@ -57,24 +58,45 @@
                 </tr>
             </thead>
             <tbody>
-
+                   
                    @foreach ($turmas_aluno as $aluno_turma)
                        <tr>
+                         @php
+                           $qt = 0;                                                                                     
+                         @endphp
                           @if ($aluno_turma->turma_id == $turma_id)
                                  @foreach ($alunos as $aluno)
                                     @if ($aluno->id == $aluno_turma->aluno_id)
                                       <td></td>
-                                      <td> {{$aluno->nome}}</td>                                  
-                                       @foreach ($frequencias as $frequencia) 
-                                           @if ($frequencia->aluno_id ==$aluno_turma->aluno_id)
-                                               @if ($frequencia->presente == 1)
-                                                   <td align="center"> P </td>
-                                               @else
-                                                  <td align="center"> F </td> 
-                                               @endif
+                                      <td> {{$aluno->nome}}</td>  
+                                      @foreach ($aulas as $aula)                                       
+                                          @php
+                                              $achou = false;   
+                                          @endphp
+                                           @foreach ($frequencias as $frequencia)  
+                                               @if (($frequencia->aluno_id ==$aluno_turma->aluno_id) and ($frequencia->data==$aula->data))
+                                                   @if ($frequencia->presente == 1)
+                                                       <td align="center"> P </td>                            
+                                                   @else
+                                                      <td align="center"> F </td> 
+                                                      @php
+                                                         $qt=$qt+1;
+                                                      @endphp                                                      
+                                                   @endif
+                                                     @php
+                                                       $achou = true;
+                                                    @endphp
+                                                @endif
+                                            @endforeach                          
+                                            @if ($achou==false)
+                                               <td align="center">-</td>
                                             @endif
-
-                                        @endforeach                          
+                                        @endforeach
+                                        <td align="center">
+                                            @php
+                                               echo $qt;
+                                            @endphp
+                                        </td>
                                     @endif
                                 @endforeach
                             @endif

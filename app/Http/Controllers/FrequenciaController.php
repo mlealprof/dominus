@@ -167,13 +167,13 @@ public function store($id)
         $modulos = Modulo::query()->orderBy('nome')->get();
         $professores = Professor::query()->orderBy('nome')->get();
         $turmas = Turma::query()->orderBy('id')->get();
-        $turmas_aluno = TurmaAluno::query()->orderBy('nome')->get(); 
+        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
 
 
         $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
 
 
- 
+        $qtaulas = count($aulas);
     
         $frequencias = DB::table('aulas')
             ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
@@ -182,7 +182,7 @@ public function store($id)
             ->orderBy('id')
             ->get();
         
-      //  dd($frequencias);
+        //dd($frequencias);
 
 
 
@@ -200,6 +200,7 @@ public function store($id)
             'professor_id' => $professor_id,
             'professores' => $professores,
             'modulos' => $modulos,
+            'qtaulas' =>$qtaulas,
             'cursos' => $cursos
 
             

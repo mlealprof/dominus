@@ -121,7 +121,8 @@ class AtividadeController extends Controller
     public function relatorio(Request $request)
     {
         $alunos = Aluno::query()->orderBy('id')->get(); 
-        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+
+        
         $cursos = Curso::query()->orderBy('nome')->get();
         $notas = Notas::all();   
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
@@ -134,6 +135,10 @@ class AtividadeController extends Controller
         $professor_id = $request->professor_id;
         $disciplina_id = $request->disciplina_id;
         $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+
+        $atividades = Atividade::where('disciplina_id','=',$disciplina_id)->where('turma_id','=',$turma_id)->where('curso_id','=',$curso_id)->get();
+
+
     
         
 
