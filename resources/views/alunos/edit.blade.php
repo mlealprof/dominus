@@ -27,7 +27,7 @@
             <div class="col-sm-4">
                 <label class="form-label">Data de Nascimento</label>
                 <input type="text" class="form-control form-control-sm" id="nascimento" name="dataNascimento" placeholder="DD/MM/AAAA"
-                    required="" value="{{$aluno->dataNascimento}}">
+                     value="{{$aluno->dataNascimento}}">
             </div>
 
             <div class="col-sm-4">

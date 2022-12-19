@@ -111,7 +111,7 @@
             <li>
                 <a href="/boletim" class="navs btn-sm">
                     <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
-                    Boletim
+                    Ficha Individual
                 </a>
             </li>
 

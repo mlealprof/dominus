@@ -30,13 +30,36 @@
                     Cadastros
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Professor</a></li>
-                    <li><a class="dropdown-item" href="#">Aluno</a></li>
-                    <li><a class="dropdown-item" href="#">Turma</a></li>
-                    <li><a class="dropdown-item" href="#">Disciplina</a></li>
-                    <li><a class="dropdown-item" href="#">Cursos</a></li>
-                    <li><a class="dropdown-item" href="#">Modulos</a></li>
+                    <li><a class="dropdown-item" href="/professores">Professor</a></li>
+                    <li><a class="dropdown-item" href="/alunos">Aluno</a></li>
+                    <li><a class="dropdown-item" href="/turmas">Turma</a></li>
+                    <li><a class="dropdown-item" href="/disciplinas">Disciplina</a></li>
+                    <li><a class="dropdown-item" href="/cursos">Cursos</a></li>
+                    <li><a class="dropdown-item" href="/modulos">Modulos</a></li>
                   </ul>
+
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Lançamentos
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/atividades">Atividades</a></li>
+                    <li><a class="dropdown-item" href="/aulas">Aulas</a></li>
+
+                  </ul>
+                  
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Relatórios
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/relatoriosfrequencia">Frequências</a></li>
+                    <li><a class="dropdown-item" href="/relatoriosnotas">Notas</a></li>
+                    <li><a class="dropdown-item" href="/boletim">Ficha Individual</a></li>
+                  </ul>
+                  
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url('/') }}">Sair</a>
