@@ -108,6 +108,12 @@
                     Notas
                 </a>
             </li>
+            <li>
+                <a href="/relatoriosnotas" class="navs btn-sm">
+                    <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
+                    Boletim
+                </a>
+            </li>
 
         </ul>
         

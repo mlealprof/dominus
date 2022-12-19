@@ -72,8 +72,7 @@
                                   @if ($aluno->id == $aluno_turma->aluno_id)
                                    <td></td>
                                     <td> {{$aluno->nome}}</td>
-                                  @endif
-                                             
+                                  @endif                                             
                               @endforeach
                              @foreach ($atividades as $atividade)
                                    @if (($atividade->disciplina_id == $disciplina_id) and ($atividade->curso_id == $curso_id))

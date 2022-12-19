@@ -153,24 +153,38 @@ public function store($id)
     }
 
     
-           public function taleta(Request $request)
+  public function taleta(Request $request)
     {
-        $alunos = Aluno::query()->orderBy('id')->get(); 
-        $aulas = Aulas::query()->orderBy('id') ->get(); 
-        $cursos = Curso::query()->orderBy('nome')->get();
-        $frequencias = Frequencia::all();
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $modulos = Modulo::query()->orderBy('nome')->get();
-        $professores = Professor::query()->orderBy('nome')->get();
-        $turmas = Turma::query()->orderBy('id')->get();
+
         $curso_id = $request->curso_id;
         $turma_id = $request->turma_id;
         $modulo_id = $request->modulo_id;
         $professor_id = $request->professor_id;
         $disciplina_id = $request->disciplina_id;
-        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+        $alunos = Aluno::query()->orderBy('id')->get(); 
+        $cursos = Curso::query()->orderBy('nome')->get();        
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $modulos = Modulo::query()->orderBy('nome')->get();
+        $professores = Professor::query()->orderBy('nome')->get();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $turmas_aluno = TurmaAluno::query()->orderBy('nome')->get(); 
+
+
+        $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
+
+
+ 
     
+        $frequencias = DB::table('aulas')
+            ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
+            ->join('alunos', 'alunos.id', '=', 'frequencia.aluno_id')
+            ->select('aulas.*', 'frequencia.aluno_id', 'frequencia.presente','alunos.nome')
+            ->orderBy('id')
+            ->get();
         
+      //  dd($frequencias);
+
+
 
       return view('frequencia.gerataletas',[
             'alunos' => $alunos,
