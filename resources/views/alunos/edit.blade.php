@@ -11,42 +11,42 @@
 
             <div class="col-sm-4">
                 <label class="form-label">*Matricula</label>
-                <input type="text" class="form-control form-control-sm" id="matricula" name="matricula" required="" value="{{$aluno->matricula}}">
+                <input type="text" class="form-control form-control-sm" id="matricula" name="matricula"  value="{{$aluno->matricula}}">
             </div>
 
             <div class="col-sm-4">
-                <label class="form-label">*CPF</label>
-                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00"required="">
+                <label class="form-label">CPF</label>
+                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00">
             </div>
 
             <div class="col-4">
-                <label class="form-label">*Email</label>
-                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="voce@example.com" required="" value="{{ $aluno->email }}">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="voce@example.com"  value="{{ $aluno->email }}">
             </div>
 
             <div class="col-sm-4">
-                <label class="form-label">*Data de Nascimento</label>
+                <label class="form-label">Data de Nascimento</label>
                 <input type="text" class="form-control form-control-sm" id="nascimento" name="dataNascimento" placeholder="DD/MM/AAAA"
                     required="" value="{{$aluno->dataNascimento}}">
             </div>
 
             <div class="col-sm-4">
 
-                <label class="form-label">*Sexo</label>
+                <label class="form-label">Sexo</label>
                 <div class="container mt-1">
                     <div class="form-check form-check-inline">
                         @if($aluno->sexo == 'mas' )
-                            <input class="form-check-input" type="radio" name="sexo" id="mas" value="mas" required="" checked="checked">
+                            <input class="form-check-input" type="radio" name="sexo" id="mas" value="mas" checked="checked">
                         @else
-                            <input class="form-check-input" type="radio" name="sexo" id="mas" value="mas" required="">
+                            <input class="form-check-input" type="radio" name="sexo" id="mas" value="mas">
                         @endif
                             <label class="form-check-label">Masculino</label>
                     </div>
                     <div class="form-check form-check-inline">
                         @if($aluno->sexo == 'fem' )
-                            <input class="form-check-input" type="radio" name="sexo" id="fem" value="fem" required="" checked="checked">
+                            <input class="form-check-input" type="radio" name="sexo" id="fem" value="fem" checked="checked">
                         @else
-                            <input class="form-check-input" type="radio" name="sexo" id="fem" value="fem" required="">
+                            <input class="form-check-input" type="radio" name="sexo" id="fem" value="fem">
                         @endif
                             <label class="form-check-label">Feminino</label>
                     </div>
@@ -54,9 +54,9 @@
             </div>
 
             <div class="col-3">
-                <label class="form-label">*Celular</label>
+                <label class="form-label">Celular</label>
                 <input type="text" class="form-control form-control-sm" id="telefone" name="telefone"
-                    placeholder="(00) 00000-0000" required="" value="{{ $aluno->telefone }}">
+                    placeholder="(00) 00000-0000" value="{{ $aluno->telefone }}">
             </div>
 
             <div class="col-3">
@@ -66,7 +66,7 @@
 
             <div class="col-sm-2">
                 <label class="form-label">Estado Emissor</label>
-                <select class="form-select form-select-sm" id="estado" name="estado" required="" value="{{ $aluno->estadoEmissor }}">
+                <select class="form-select form-select-sm" id="estado" name="estado" value="{{ $aluno->estadoEmissor }}">
 
                     @foreach ($estados as $estado)
                         @if ($estado->uf == $aluno->estado)

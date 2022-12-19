@@ -103,9 +103,15 @@
                      @endforeach
                                             
       
-                
+               
             </tbody> 
 </table>
+ <button onClick="cont();">Imprimir</button>
 
-
+<script type="text/javascript">
+    
+function cont(){
+    window.print();
+}
+</script>
 </x-layout>

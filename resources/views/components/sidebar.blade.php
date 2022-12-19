@@ -80,13 +80,13 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
                 <a href="/atividades" class="navs btn-sm">
-                    <img src="{{ asset('icons/notas.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/frequencia.png') }}" style="width: 15%" />
                     Atividades
                 </a>
             </li>
             <li>
                 <a href="/aulas" class="navs btn-sm">
-                    <img src="{{ asset('icons/frequencia.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/quadro-negro.png') }}" style="width: 15%" />
                     Aulas
                 </a>
             </li>
@@ -104,12 +104,12 @@
             </li>
             <li>
                 <a href="/relatoriosnotas" class="navs btn-sm">
-                    <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
+                    <img src="{{ asset('icons/notas.png') }}" style="width: 15%" />
                     Notas
                 </a>
             </li>
             <li>
-                <a href="/relatoriosnotas" class="navs btn-sm">
+                <a href="/boletim" class="navs btn-sm">
                     <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
                     Boletim
                 </a>

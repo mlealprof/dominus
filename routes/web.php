@@ -77,6 +77,7 @@ Route::get('relatoriosnotas', [NotasController::class, 'relatorios']);
 Route::post('/relatorios/geratargetanotas', [AtividadeController::class,'relatorio'])->name('atividade.relatorio');
 Route::get('relatoriosfrequencia', [FrequenciaController::class, 'relatorio']);
 Route::post('/relatorios/geratargetafrequencia', [FrequenciaController::class,'taleta'])->name('frequencia.relatorio');
+Route::get('/boletim', [NotasController::class, 'boletim']);
 
 
 

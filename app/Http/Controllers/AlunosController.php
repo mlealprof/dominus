@@ -104,6 +104,7 @@ class AlunosController extends Controller
         $aluno->dataNascimento = $request->dataNascimento;
         $aluno->sexo = $request->sexo;
         $aluno->rg = $request->rg;
+        $aluno->cpf = $request->cpf;
         $aluno->estadoEmissor = $request->estadoEmissor;
         $aluno->orgaoEmissor = $request->orgaoEmissor;
         $aluno->dataExpedicao = $request->dataExpedicao;
