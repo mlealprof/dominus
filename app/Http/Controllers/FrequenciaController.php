@@ -163,11 +163,19 @@ public function store($id)
         $alunos = Aluno::query()->orderBy('id')->get(); 
         $cursos = Curso::query()->orderBy('nome')->get();        
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $modulos = Modulo::query()->orderBy('nome')->get();
+        $modulos = Modulo::findOrFail($modulo_id);
         $professores = Professor::query()->orderBy('nome')->get();
         $turmas = Turma::query()->orderBy('id')->get();
-        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+     
 
+        $alunos_turma = DB::table('turma_aluno')
+               ->join('alunos','turma_aluno.aluno_id','=','alunos.id')
+               ->select('turma_aluno.*','alunos.nome','alunos.matricula')
+               ->where('turma_id','=',$turma_id)
+               ->orderBy('id')
+               ->get();
+
+       
 
         $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
 
@@ -178,13 +186,14 @@ public function store($id)
             ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
             ->join('alunos', 'alunos.id', '=', 'frequencia.aluno_id')
             ->select('aulas.*', 'frequencia.aluno_id', 'frequencia.presente','alunos.nome')
+            ->where('aulas.curso_id','=',$curso_id)->where('aulas.turma_id','=',$turma_id)->where('aulas.disciplina_id','=',$disciplina_id)
             ->orderBy('id')
             ->get();
         
         //dd($frequencias);
 
 
-      return \PDF::loadView('frequencia.pdf_relatorio_frequencia', compact('alunos','turmas','turmas_aluno','aulas','frequencias','disciplina_id','disciplinas','curso_id','turma_id','modulo_id','professor_id','professores','modulos','qtaulas','cursos'))
+      return \PDF::loadView('frequencia.pdf_relatorio_frequencia', compact('alunos','turmas','alunos_turma','aulas','frequencias','disciplina_id','disciplinas','curso_id','turma_id','modulo_id','professor_id','professores','modulos','qtaulas','cursos'))
                 ->setPaper('A4', 'landscape')
                 ->stream();
 

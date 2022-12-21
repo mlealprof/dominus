@@ -7,22 +7,27 @@
     <title>Relatório de Frequencia</title>
 </head>
 <body>
-
-    
+<?php
+   date_default_timezone_set ("America/Sao_Paulo");
+   $hoje = date('d/m/Y  -  h:i:s');
+   echo "<font size='0.4em'><div>Data: ".$hoje."<div></font>";
+?>
+      
       <table class="border" width="100%">
             <tr>
-                <td width="200px">
+                <td width="180px">
                   
                       <h5>Dominus</h5>
                      <font size='1'>Av. Oton Barcelos, 653 <br>São Pedro, Arcos - MG, 35588-000</font>
                   
                 </td>
 
-                <td width="200px">
+                <td width="180px">
                    <h3> Relatório de Frequência</h3>
                 </td>
+                
                 <td width="200px">
-                    
+                    <font size="1">
                        <b>Turma:</b> 
                            @foreach ($turmas as $turma)
                               @if ($turma->id == $turma_id)
@@ -34,7 +39,9 @@
                     <b>Disciplina:</b> 
                            @foreach ($disciplinas as $disciplina)
                               @if ($disciplina->id == $disciplina_id)
-                                 {{$disciplina->nome}} <br><b>Carga Horária:</b>{{$disciplina->carga_horaria}}h
+                                 {{$disciplina->nome}} <br>
+                                 <b>Carga Horária:</b>{{$disciplina->carga_horaria}}h -
+                                 <b>Módulo:</b>{{$modulos->nome}}
                               @endif
                            @endforeach
 
@@ -46,23 +53,24 @@
                               @endif
                            @endforeach
                            <br><b>Quantidade de Aulas:</b> {{$qtaulas}}
-                 
+                   </font>
+   
             </td>
         </tr>
-       
+      
+</table><br>
+<font size="0.4em">
 
-</table>
-
-<table  id="taleta" class="table table-bordered">
+<table  id="taleta" border="0.5">
             <thead>
-                <tr>
+                <tr >
                     <th>N.º</th>
                     <th>Aluno</th> 
                        @foreach ($aulas as $aula)
                        @if (( $aula->disciplina_id == $disciplina_id) and ($aula->turma_id == $turma_id))
-                           
-                            <th >{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}} </th>  
                             
+                            <th border="0" ><font size='0.5em'>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}} </font></th>  
+                           
                        @endif
                     @endforeach                  
                     <th>Total Faltas</th>                                        
@@ -70,47 +78,45 @@
             </thead>
             <tbody>
                    
-                   @foreach ($turmas_aluno as $aluno_turma)
-                       <tr>
+                   @foreach ($alunos_turma as $aluno)
+                       <tr >
                          @php
-                           $qt = 0;                                                                                     
+                           $qt=0;                                                                                    
                          @endphp
-                          @if ($aluno_turma->turma_id == $turma_id)
-                                 @foreach ($alunos as $aluno)
-                                    @if ($aluno->id == $aluno_turma->aluno_id)
-                                      <td></td>
-                                      <td> {{$aluno->nome}}</td>  
-                                      @foreach ($aulas as $aula)                                       
+                         <td >{{$aluno->matricula}}</td>
+                         <td > {{$aluno->nome}}</td> 
+
+                         @foreach ($aulas as $aula)                                       
+                              @php
+                                  $achou = false;   
+                              @endphp
+
+
+                               @foreach ($frequencias as $frequencia)  
+                                   @if (($frequencia->aluno_id == $aluno->aluno_id) and ($frequencia->id==$aula->id))
+                                       @if ($frequencia->presente == 1)
+                                           <td align="center"> P </td>                            
+                                       @else
+                                          <td align="center"> F </td> 
                                           @php
-                                              $achou = false;   
-                                          @endphp
-                                           @foreach ($frequencias as $frequencia)  
-                                               @if (($frequencia->aluno_id ==$aluno_turma->aluno_id) and ($frequencia->data==$aula->data))
-                                                   @if ($frequencia->presente == 1)
-                                                       <td align="center"> P </td>                            
-                                                   @else
-                                                      <td align="center"> F </td> 
-                                                      @php
-                                                         $qt=$qt+1;
-                                                      @endphp                                                      
-                                                   @endif
-                                                     @php
-                                                       $achou = true;
-                                                    @endphp
-                                                @endif
-                                            @endforeach                          
-                                            @if ($achou==false)
-                                               <td align="center">-</td>
-                                            @endif
-                                        @endforeach
-                                        <td align="center">
-                                            @php
-                                               echo $qt;
-                                            @endphp
-                                        </td>
+                                             $qt=$qt+1;
+                                          @endphp                                                      
+                                       @endif
+                                         @php
+                                           $achou = true;
+                                        @endphp
                                     @endif
-                                @endforeach
-                            @endif
+                                @endforeach                          
+                                @if ($achou==false)
+                                   <td   heigh="0.5px"  align="center">-</td>
+                                @endif
+                         @endforeach
+                            <td align="center">
+                                @php
+                                   echo $qt;
+                                @endphp
+                            </td>
+                    
                         </tr>
                     @endforeach
                     
