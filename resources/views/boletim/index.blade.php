@@ -1,4 +1,4 @@
-<x-layout title="Boletim Individual">
+<x-layout title="Ficha Individual">
 
 
     <form class="needs-validation mb-3" action="{{route('atividade.relatorio')}}" method="post">

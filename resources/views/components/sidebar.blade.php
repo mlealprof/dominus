@@ -122,17 +122,12 @@
         </h6>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="" class="navs disabled btn-sm">
+                <a href="/usuarios" class="navs disabled btn-sm">
                     <img src="{{ asset('icons/cadastro_de_usuarios.png') }}" style="width: 15%" />
                     Cadastro de Usuário
                 </a>
             </li>
-            <li>
-                <a href="" class="navs disabled btn-sm">
-                    <img src="{{ asset('icons/grupo_de_usuarios.png') }}" style="width: 15%" />
-                    Grupos de Usuários
-                </a>
-            </li>
+
         </ul>
     </div>
 </nav>

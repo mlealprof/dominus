@@ -152,8 +152,62 @@ public function store($id)
         ]);
     }
 
-    
   public function taleta(Request $request)
+    {
+
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+        $alunos = Aluno::query()->orderBy('id')->get(); 
+        $cursos = Curso::query()->orderBy('nome')->get();        
+        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $modulos = Modulo::query()->orderBy('nome')->get();
+        $professores = Professor::query()->orderBy('nome')->get();
+        $turmas = Turma::query()->orderBy('id')->get();
+        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+
+
+        $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
+
+
+        $qtaulas = count($aulas);
+    
+        $frequencias = DB::table('aulas')
+            ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
+            ->join('alunos', 'alunos.id', '=', 'frequencia.aluno_id')
+            ->select('aulas.*', 'frequencia.aluno_id', 'frequencia.presente','alunos.nome')
+            ->orderBy('id')
+            ->get();
+        
+        //dd($frequencias);
+
+
+      return \PDF::loadView('frequencia.pdf_relatorio_frequencia', compact('alunos','turmas','turmas_aluno','aulas','frequencias','disciplina_id','disciplinas','curso_id','turma_id','modulo_id','professor_id','professores','modulos','qtaulas','cursos'))
+                ->setPaper('A4', 'landscape')
+                ->stream();
+
+    }
+
+
+ public function GeraPDF()
+{
+    $alunos = Aluno::all();
+    $turma = 'teste';
+ 
+ //   return view('frequencia.pdf_relatorio_frequencia',['alunos'=>$alunos]) ;
+
+    return \PDF::loadView('frequencia.pdf_relatorio_frequencia', compact('alunos','turma'))
+                // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+                ->stream();
+    
+}
+
+
+
+    
+ /* public function taleta(Request $request)
     {
 
         $curso_id = $request->curso_id;
@@ -206,5 +260,10 @@ public function store($id)
             
         ]);
     }
+
+*/
+
+
+
 
 }
