@@ -1,7 +1,7 @@
 <x-layout title="Relatórios de Notas">
 
 
-    <form class="needs-validation mb-3" action="{{route('atividade.relatorio')}}" method="post">
+    <form class="needs-validation mb-3" action="{{route('atividade.relatorio')}}" method="post" target="_blanck">
         @csrf
         <div class="row g-3 border rounded-3 pb-3 user-select-none">
           

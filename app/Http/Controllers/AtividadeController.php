@@ -118,6 +118,67 @@ class AtividadeController extends Controller
 
 
     }
+   
+  public function relatorio(Request $request)
+    {
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+         
+        
+
+        $cursos = Curso::findOrFail($curso_id);        
+        $disciplinas = Disciplina::findOrFail($disciplina_id);
+        $modulos = Modulo::findOrFail($modulo_id);
+        $professores = Professor::findOrFail($professor_id);
+        $turmas = Turma::findOrFail($turma_id);
+    
+       
+        $turmas_aluno = DB::table('turma_aluno')
+                        ->join('alunos','turma_aluno.aluno_id','=','alunos.id')
+                        ->where('turma_aluno.turma_id','=',$turma_id)                       
+                        ->get();
+
+        $atividades = Atividade::where('disciplina_id','=',$disciplina_id)->where('turma_id','=',$turma_id)->where('curso_id','=',$curso_id)->get();
+        $total_notas=0;
+
+        foreach($atividades as $atividade){
+            $total_notas+=$atividade->valor;
+        }
+      
+
+        $soma = 
+
+        $notas = DB::table('notas')
+                ->join('atividade','notas.atividade_id','=','atividade.id')
+                ->where('atividade.disciplina_id','=',$disciplina_id)
+                ->where('atividade.turma_id','=',$turma_id)
+                ->where('atividade.curso_id','=',$curso_id)
+            
+                ->get();
+
+
+    
+
+      return \PDF::loadView('atividades.pdf_relatorio_nota', compact('cursos','disciplinas','modulos','professores','turmas','turmas_aluno','atividades','notas','turma_id','modulo_id','professor_id','disciplina_id','curso_id','total_notas'))
+                ->setPaper('A4', 'landscape')
+                ->stream();
+
+    }
+
+
+
+
+
+
+
+
+
+/*
+
+
     public function relatorio(Request $request)
     {
         $alunos = Aluno::query()->orderBy('id')->get(); 
@@ -161,4 +222,7 @@ class AtividadeController extends Controller
             
         ]);
     }
+    */
+
+
 }

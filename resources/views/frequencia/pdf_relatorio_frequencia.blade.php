@@ -28,34 +28,15 @@
                 
                 <td width="200px">
                     <font size="1">
-                       <b>Turma:</b> 
-                           @foreach ($turmas as $turma)
-                              @if ($turma->id == $turma_id)
-                                 {{$turma->nome}}
-                              @endif
-                           @endforeach
-                    <br>
-                   
-                    <b>Disciplina:</b> 
-                           @foreach ($disciplinas as $disciplina)
-                              @if ($disciplina->id == $disciplina_id)
-                                 {{$disciplina->nome}} <br>
-                                 <b>Carga Horária:</b>{{$disciplina->carga_horaria}}h -
-                                 <b>Módulo:</b>{{$modulos->nome}}
-                              @endif
-                           @endforeach
-
-                   <br>
-                       <b>Professor(a): </b>  
-                           @foreach ($professores as $professore)
-                              @if ($professore->id == $professor_id)
-                                 {{$professore->nome}}
-                              @endif
-                           @endforeach
-                           <br><b>Quantidade de Aulas:</b> {{$qtaulas}}
+                       <b>Turma:</b> {{$turmas->nome}} <br>                   
+                       <b>Disciplina:</b> {$disciplinas->nome}} <br>
+                       <b>Carga Horária:</b>{{$disciplinas->carga_horaria}}h -
+                        <b>Módulo:</b>{{$modulos->nome}}<br>
+                       <b>Professor(a): </b> {{$professores->nome}}           
+                       <br><b>Quantidade de Aulas:</b> {{$qtaulas}}
                    </font>
    
-            </td>
+                 </td>
         </tr>
       
 </table><br>

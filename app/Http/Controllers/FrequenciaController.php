@@ -160,12 +160,13 @@ public function store($id)
         $modulo_id = $request->modulo_id;
         $professor_id = $request->professor_id;
         $disciplina_id = $request->disciplina_id;
+
         $alunos = Aluno::query()->orderBy('id')->get(); 
-        $cursos = Curso::query()->orderBy('nome')->get();        
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $cursos = Curso::findOrFail($curso_id);
+        $disciplinas = Disciplina::findOrFail($disciplina_id);
         $modulos = Modulo::findOrFail($modulo_id);
-        $professores = Professor::query()->orderBy('nome')->get();
-        $turmas = Turma::query()->orderBy('id')->get();
+        $professores = Professor::findOrFail($professor_id);
+        $turmas = Turma::findOrFail($turma_id);
      
 
         $alunos_turma = DB::table('turma_aluno')
@@ -200,77 +201,7 @@ public function store($id)
     }
 
 
- public function GeraPDF()
-{
-    $alunos = Aluno::all();
-    $turma = 'teste';
  
- //   return view('frequencia.pdf_relatorio_frequencia',['alunos'=>$alunos]) ;
-
-    return \PDF::loadView('frequencia.pdf_relatorio_frequencia', compact('alunos','turma'))
-                // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
-                ->stream();
-    
-}
-
-
-
-    
- /* public function taleta(Request $request)
-    {
-
-        $curso_id = $request->curso_id;
-        $turma_id = $request->turma_id;
-        $modulo_id = $request->modulo_id;
-        $professor_id = $request->professor_id;
-        $disciplina_id = $request->disciplina_id;
-        $alunos = Aluno::query()->orderBy('id')->get(); 
-        $cursos = Curso::query()->orderBy('nome')->get();        
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $modulos = Modulo::query()->orderBy('nome')->get();
-        $professores = Professor::query()->orderBy('nome')->get();
-        $turmas = Turma::query()->orderBy('id')->get();
-        $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
-
-
-        $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
-
-
-        $qtaulas = count($aulas);
-    
-        $frequencias = DB::table('aulas')
-            ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
-            ->join('alunos', 'alunos.id', '=', 'frequencia.aluno_id')
-            ->select('aulas.*', 'frequencia.aluno_id', 'frequencia.presente','alunos.nome')
-            ->orderBy('id')
-            ->get();
-        
-        //dd($frequencias);
-
-
-
-      return view('frequencia.gerataletas',[
-            'alunos' => $alunos,
-            'turmas_aluno' => $turmas_aluno,
-            'turmas' => $turmas,
-            'aulas' => $aulas,
-            'frequencias' => $frequencias,
-            'disciplina_id' => $disciplina_id,
-            'disciplinas' => $disciplinas,
-            'curso_id' => $curso_id,
-            'turma_id' => $turma_id,
-            'modulo_id' => $modulo_id,
-            'professor_id' => $professor_id,
-            'professores' => $professores,
-            'modulos' => $modulos,
-            'qtaulas' =>$qtaulas,
-            'cursos' => $cursos
-
-            
-        ]);
-    }
-
-*/
 
 
 

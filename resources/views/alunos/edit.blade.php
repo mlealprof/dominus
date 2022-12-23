@@ -16,7 +16,7 @@
 
             <div class="col-sm-4">
                 <label class="form-label">CPF</label>
-                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00">
+                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00" value="{{ $aluno->cpf }}">
             </div>
 
             <div class="col-4">

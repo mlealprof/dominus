@@ -99,13 +99,19 @@
             <li>
                 <a href="/relatoriosfrequencia" class="navs btn-sm">
                     <img src="{{ asset('icons/presenca.png') }}" style="width: 15%" />
-                    Frequência
+                    Frequência / Turma
+                </a>
+            </li>
+            <li>
+                <a href="/relatoriosfrequencia" class="navs btn-sm">
+                    <img src="{{ asset('icons/aulas.png') }}" style="width: 15%" />
+                    Aulas Lançadas
                 </a>
             </li>
             <li>
                 <a href="/relatoriosnotas" class="navs btn-sm">
                     <img src="{{ asset('icons/notas.png') }}" style="width: 15%" />
-                    Notas
+                    Notas / Turma
                 </a>
             </li>
             <li>

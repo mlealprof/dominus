@@ -10,12 +10,12 @@
 
             <div class="col-sm-4">
                 <label class="form-label">*Matricula</label>
-                <input type="text" class="form-control form-control-sm" id="matricula" name="matricula" required="">
+                <input type="text" class="form-control form-control-sm" id="matricula" name="matricula" >
             </div>
 
             <div class="col-sm-4">
                 <label class="form-label">*CPF</label>
-                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00"required="">
+                <input type="text" class="form-control form-control-sm" id="cpf" name="cpf" placeholder="000.000.000-00">
             </div>
 
             <div class="col-4">
