@@ -25,18 +25,27 @@ class FrequenciaController extends Controller
     public function index($id)
     {
         
-        $alunos = Aluno::all();
-        $aulas = Aulas::query()->orderBy('id', 'desc') ->get();   
-        $professores = Professor::query()->orderBy('nome')->get();
-        $frequencias = DB::table('frequencia')->where('aulas_id', $id)->get();
-        $turmas = Turma::query()->orderBy('id')->get();
-        $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('id')->get(); 
+                
+        $aulas = Aulas::findOrFail($id); 
 
+        $professores = Professor::findOrFail($aulas->professor_id);
 
+        $frequencias = DB::table('frequencia')
+                      ->join('alunos','frequencia.aluno_id','=','alunos.id')
+                      ->select('frequencia.*','alunos.nome')
+                      ->where('frequencia.aulas_id','=', $id)
+                      ->get();
+
+      
+
+        $turmas = Turma::findOrFail($aulas->turma_id);
+        $cursos = Curso::findOrFail($aulas->curso_id);
+        $disciplinas = Disciplina::findOrFail($aulas->disciplina_id); 
+
+      
 
         return view('frequencia.frequencia',[
-            'alunos' => $alunos,
+            
             'frequencias' => $frequencias,
             'aulas' => $aulas,            
             'turmas' => $turmas,
@@ -90,16 +99,6 @@ public function store($id)
    public function updateSim($id,$frequencia_id)
     {
 
-       $alunos = Aluno::all();
-       $turmas = Turma::query()->orderBy('id')->get();
-       $cursos = Curso::query()->orderBy('nome')->get();
-       $professores = Professor::query()->orderBy('nome')->get();
-       $disciplinas = Disciplina::query()->orderBy('id')->get(); 
-       $aulas = Aulas::query()->orderBy('id', 'desc') ->get(); 
-       $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
-
-
-
 
 
         $frequencia = Frequencia::findOrFail($frequencia_id);
@@ -108,28 +107,21 @@ public function store($id)
 
         $frequencias = DB::table('frequencia')->where('aulas_id', $frequencia->aulas_id)->get();
 
-        return redirect('aulas/frequencia/'.$id);
+        return redirect('aulas/frequencia/'.$id.'#'.$frequencia->id);
     }
 
        public function updateNao($id,$frequencia_id)
     {
 
-       $alunos = Aluno::all();
-       $turmas = Turma::query()->orderBy('id')->get();
-       $cursos = Curso::query()->orderBy('nome')->get();
-       $professores = Professor::query()->orderBy('nome')->get();
-       $disciplinas = Disciplina::query()->orderBy('id')->get(); 
-       $aulas = Aulas::query()->orderBy('id', 'desc') ->get(); 
-       $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
-
-
 
         $frequencia = Frequencia::findOrFail($frequencia_id);
+
         $frequencia->presente = 0;
         $frequencia->save();    
         $rota = 'aulas/frequencia/'.$id;
         $frequencias = DB::table('frequencia')->where('aulas_id', $frequencia->aulas_id)->get();
-        return redirect('aulas/frequencia/'.$id);
+
+        return redirect('aulas/frequencia/'.$id.'#'.$frequencia->id);
         
    
     }
