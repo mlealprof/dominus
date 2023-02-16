@@ -24,7 +24,7 @@ class TurmaController extends Controller
     public function index()    
     {
      
-        $turmas = Turma::query()->orderBy('id')->get();
+        $turmas = Turma::query()->orderBy('situacao','asc')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $modulos = Modulo::query()->orderBy('nome')->get();
         $alunos = Aluno::query()->orderBy('nome')->get();
@@ -62,8 +62,8 @@ class TurmaController extends Controller
     public function store(Request $request,Turma $turma)
     {
         $turma->nome = $request->nome;
-        $turma->curso = $request->curso_id;
-        $turma->modulo = $request->modulo_id;
+        $turma->curso = $request->curso_id; 
+        $turma->situacao = 1;       
         $turma->save();
 
         return redirect('turmas');
@@ -106,7 +106,7 @@ class TurmaController extends Controller
     {
         $turma->nome = $request->nome;
         $turma->curso = $request->curso_id;
-        $turma->modulo = $request->modulo_id;
+        $turma->situacao = $request->situacao;
         $turma->save();
 
         return redirect('turmas');

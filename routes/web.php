@@ -39,6 +39,7 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
 Route::post('autenticate', [LoginController::class, 'autenticate']);
+Route::get('sair', [LoginController::class, 'sair']);
 
 //Aulas
 
@@ -110,8 +111,10 @@ Route::resource('turmas',TurmaController::class)->names('turma')->parameters(['t
     Route::post('/turmas/professor',[TurmaProfessorController::class,'store'])->name('turma.professor.store');
 
 
-
-
+//Cadastro de Usuários
+Route::get('usuarios', [LoginController::class, 'usuarios']);    
+Route::get('/usuarios/novo', [LoginController::class,'usuario_index'])->name('usuarios.create');
+Route::get('/usuarios/salvar', [LoginController::class,'usuario_store'])->name('usuario.store');
 
 
 //Autocomplete

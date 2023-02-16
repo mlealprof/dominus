@@ -50,6 +50,12 @@
                 </a>
             </li>
             <li>
+                <a href="/turmas" class="navs">
+                    <img src="{{ asset('icons/criancas.png') }}" style="width: 15%" />
+                    Turma
+                </a>
+            </li>            
+            <li>
                 <a href="/modulos" class="navs">
                     <img src="{{ asset('icons/livro-didatico.png') }}" style="width: 15%" />
                     Módulo
@@ -61,12 +67,7 @@
                     Disciplina
                 </a>
             </li>
-            <li>
-                <a href="/turmas" class="navs">
-                    <img src="{{ asset('icons/criancas.png') }}" style="width: 15%" />
-                    Turma
-                </a>
-            </li>
+
             <li>
                 <a href="/horarios" class="navs">
                     <img src="{{ asset('icons/tempo.png') }}" style="width: 15%" />
@@ -128,7 +129,7 @@
         </h6>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="/usuarios" class="navs disabled btn-sm">
+                <a href="/usuarios" class="navs btn-sm">
                     <img src="{{ asset('icons/cadastro_de_usuarios.png') }}" style="width: 15%" />
                     Cadastro de Usuário
                 </a>

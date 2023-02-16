@@ -25,7 +25,7 @@
         		      	<form action="{{ url('autenticate') }}" method="post" class="signin-form">
                             @csrf
         		      		<div class="form-group pb-3">
-        		      			<input type="text" class="form-control" placeholder="Email" required name="email" value="dominus">
+        		      			<input type="text" class="form-control" placeholder="CPF" required name="cpf" value="dominus">
         		      		</div>
             	            <div class="form-group">
             	                   <input id="password-field" type="password" class="form-control" placeholder="Senha" required name="password" value="admin">

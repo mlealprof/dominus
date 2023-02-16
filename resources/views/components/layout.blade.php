@@ -62,7 +62,7 @@
                   
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url('/') }}">Sair</a>
+                  <a class="nav-link" href="/sair") }}">Sair</a>
                 </li>
               </ul>
             </div>

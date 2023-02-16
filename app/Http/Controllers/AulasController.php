@@ -22,6 +22,14 @@ class AulasController extends Controller
 {
    public function index()
     {
+
+
+     if(session()->get('logado')<>'sim'){
+        return view('auth.login');
+     }
+
+        
+
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
@@ -35,6 +43,8 @@ class AulasController extends Controller
             'aulas' => $aulas,
             'professores' => $professores
         ]);
+
+     
     }
 
    public function nova()
