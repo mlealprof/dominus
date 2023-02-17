@@ -27,6 +27,11 @@
             <i class="fa fa-home fa-2x" aria-hidden="true"></i>
             Home
         </a>
+
+
+        @if (session()->get('professor_id')=='')
+
+        
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Cadastros</span>
         </h6>
@@ -75,6 +80,12 @@
                 </a>
             </li>
         </ul>
+
+                
+        @endif 
+
+
+
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Lançamentos</span>
         </h6>
@@ -115,15 +126,19 @@
                     Notas / Turma
                 </a>
             </li>
+            @if (session()->get('professor_id')=='')
+
             <li>
                 <a href="/boletim" class="navs btn-sm">
                     <img src="{{ asset('icons/boletim.png') }}" style="width: 15%" />
                     Ficha Individual
-                </a>
+                </a>            
             </li>
+            @endif
 
         </ul>
-        
+        @if (session()->get('professor_id')=='')
+
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Acessos</span>
         </h6>
@@ -136,5 +151,7 @@
             </li>
 
         </ul>
+
+        @endif
     </div>
 </nav>

@@ -28,13 +28,38 @@ class AtividadeController extends Controller
    public function index()
     {
 
-      if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+      if((session()->get('logado')<>'sim')){
         return view('auth.login');
      }
+        
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $professor_id = session()->get('professor_id');
+
+         $disciplinas = Disciplina::query()->orderBy('id')->get();   
+
+         $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+
+        if(session()->get('professor_id')<>''){
+
+            $atividades = DB::table('atividade')
+                            ->join('turma_professor','atividade.turma_id','=','turma_professor.turma_id')
+                            ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')
+                            ->join('turmas','turma_professor.turma_id','=','turmas.id')
+                            ->where('turma_professor.professor_id','=',$professor_id)  
+                            ->select('atividade.*','turma_professor.professor_id','disciplinas.nome','turmas.nome as turma')                     
+                            ->get();
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->get();
+   
+        }
+         
+     
+        //dd($disciplinas);
+        //dd($atividades);
+        
       
         $professores = Professor::query()->orderBy('nome')->get();
         return view('atividades.index',[
@@ -45,14 +70,36 @@ class AtividadeController extends Controller
             'professores' => $professores
         ]);
     }
+
      public function nova()
     {
+
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('nome')->get();  
-        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $professor_id = session()->get('professor_id');
+
+         $disciplinas = Disciplina::query()->orderBy('id')->get();   
+
+         $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+
+        if(session()->get('professor_id')<>''){
+
+            $turmas = DB::table('turma')
+                            ->join('turma_professor','turma.id','=','turma_professor.id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turma.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->get();
+   
+        }
+
       
-        $professores = Professor::query()->orderBy('nome')->get();
+      
+        $professores = Professor::findOrFail($professor_id);
 
         return view('atividades.create',[
             'turmas' => $turmas,
@@ -64,13 +111,34 @@ class AtividadeController extends Controller
     }
 
     public function show(){
+
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
-        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
-      
-        $professores = Professor::query()->orderBy('nome')->get();
-        
+        $professor_id = session()->get('professor_id');
+
+         $disciplinas = Disciplina::query()->orderBy('id')->get();   
+
+         $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+          $professores = Professor::query()->orderBy('nome')->get();
+
+        if(session()->get('professor_id')<>''){
+            $professores = Professor::findOrFail($professor_id);
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->get();
+   
+        }
+
+      //  dd($turmas);        
         return view('atividades.create',[
             'turmas' => $turmas,
             'cursos' => $cursos,            

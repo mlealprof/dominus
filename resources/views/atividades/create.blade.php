@@ -8,8 +8,8 @@
                 <label class="form-label">*Curso</label>
                 <select class="form-select" id="curso_id" name="curso_id">
                     <option value="0">Selecione...</option>
-                    @foreach ($cursos as $curso)
-                        <option value="{{$curso->id}}">{{$curso->nome}}</option>
+                    @foreach ($turmas as $turma)
+                        <option value="{{$turma->curso_id}}">{{$turma->curso}}</option>
                     @endforeach
                 </select>
             </div>
@@ -20,7 +20,7 @@
                 <select class="form-select" id="turma_id" name="turma_id" disabled>
                     <option value="0">Selecione...</option>
                     @foreach ($turmas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->nome}}</option>
+                        <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
                     @endforeach
                 </select>
             </div>
@@ -29,17 +29,15 @@
                 <label class="form-label">*Disciplina</label>
                 <select class="form-select" id="disciplina_id" name="disciplina_id" disabled >
                     <option value="0">Selecione...</option>
-                                
                 </select>
             </div>
 
             <div class="col-sm-7">
                 <label class="form-label">*Professor</label>
-                 <select class="form-select" id="professor_id" name="professor_id" >
-                    <option value="0">Selecione...</option>
-                                
-                </select>
-        
+                 <input type="hidden" id="professor_id" name="professor_id" value="{{$professores->id}}" >
+                 <input type="text" class="form-select" id="nome_professor" name="nome_professor" value="{{$professores->nome}}" >
+                    
+                        
             </div>
 
             <div class="col-sm-4">
@@ -80,7 +78,7 @@
           let value = $('#curso_id').val()
           if (value > 0) {
               $(this).addClass('is-valid')
-              addTurmaNovo(value)
+           //   addTurmaNovo(value)
               $( "#turma_id" ).prop( "disabled", false ).focus();
           } else {
               $(this).removeClass('is-valid')
@@ -115,7 +113,7 @@
           if (value > 0) {
               $(this).addClass('is-valid')
               $("#data").focus();
-              addProfessor($('#disciplina_id').val())
+             // addProfessor($('#disciplina_id').val())
           } else {
               $(this).removeClass('is-valid')              
           }

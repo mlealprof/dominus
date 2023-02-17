@@ -55,6 +55,9 @@ Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::c
 Route::get('pdf', [FrequenciaController::class, 'GeraPDF']);
 
 
+Route::get('/quadro_aviso', [HomeController::class,'salvar']);
+Route::post('/quadro_aviso', [HomeController::class,'salvar']);
+
 
 //Atividades
 Route::resource('atividades',AtividadeController::class)->names('index')->parameters(['atividades'=>'atividades']);
@@ -147,7 +150,10 @@ Route::get('/getturmamodulo/{id}', function ($id) {
 
 Route::get('/getdisciplina/{id}', function ($id) {    
 
-    $resultados = DB::table('turma_professor')->where('turma_id', $id)->get();
+    $professor_id = session()->get('professor_id');
+    $resultados = DB::table('turma_professor')->where('turma_id', $id)->where('professor_id', $professor_id)->get();     
+
+    
 
     echo '<option value="0">Selecione...</option>';       
     foreach ($resultados as $turma) {

@@ -26,19 +26,12 @@
                        @endif
                     @endforeach
 
+         
+                        <td>{{ $atividade->turma}}</td>
+         
                    
-                    @foreach ($turmas as $turma)
-                       @if($atividade->turma_id ==$turma->id)
-                        <td>{{ $turma->nome }}</td>
-                       @endif
-                    @endforeach
-
-                    @foreach ($disciplinas as $disciplina)
-                       @if($atividade->disciplina_id == $disciplina->id)
-                        <td>{{ $disciplina->nome }}</td>
-                       @endif
-                    @endforeach
-
+                        <td>{{ $atividade->nome }}</td>
+                   
                     
                      
           

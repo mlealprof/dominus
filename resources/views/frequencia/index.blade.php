@@ -93,25 +93,30 @@
                        @endif
                     @endforeach
 
-                    @foreach ($disciplinas as $disciplina)
-                       @if($aula->disciplina_id == $disciplina->id)
-                        <td>{{ $disciplina->nome }}</td>
-                       @endif
-                    @endforeach
-
+                    
+                        <td>{{ $aula->nome }}</td>
+                    
                     
                      
           
                     <td>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}}</td>
                    <td class="text-end">
                     <div class="">
-                        <a href="aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>                        
-                        <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aula->curso_id }}" data-turma="{{ $aula->turma_id }}"  data-disciplina="{{ $aula->disciplina_id }}" data-professor="{{ $aula->professor_id }}" data-data="{{ $aula->data }}" data-conteudo="{{ $aula->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aula]) }}">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                        <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"data-aula="{{ $aula->id }}" data-rota="{{ route('aulas.destroy',['aula'=>$aula]) }}"> 
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+                        <a href="aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>  
+                        @foreach ($aulas_acao as $aul)
+                           @if ($aul->id == $aula->id)
+                            <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aula->curso_id }}" data-turma="{{ $aula->turma_id }}"  data-disciplina="{{ $aula->disciplina_id }}" data-professor="{{ $aula->professor_id }}" data-data="{{ $aula->data }}" data-conteudo="{{ $aula->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aul]) }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                           </a>
+
+
+                            <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"data-aula="{{ $aula->id }}" data-rota="{{ route('aulas.destroy',['aula'=>$aul]) }}"> 
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                           @endif
+                        @endforeach
+
+
                     </div>
 
                 </td>

@@ -34,6 +34,21 @@ class AulasController extends Controller
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
         $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
+        $professor_id = session()->get('professor_id');
+
+        $aulas_acao = Aulas::query()->orderBy('data', 'desc') ->get();
+
+         if(session()->get('professor_id')<>''){
+
+            $aulas = DB::table('aulas')
+                            ->join('disciplinas','aulas.disciplina_id','=','disciplinas.id')                          
+                            ->where('aulas.professor_id','=',$professor_id)  
+                            ->select('aulas.*', 'disciplinas.nome')                     
+                            ->get();
+   
+        }
+
+     //   dd($aulas);
       
         $professores = Professor::query()->orderBy('nome')->get();
         return view('frequencia.index',[
@@ -41,7 +56,8 @@ class AulasController extends Controller
             'cursos' => $cursos,            
             'disciplinas' => $disciplinas,
             'aulas' => $aulas,
-            'professores' => $professores
+            'professores' => $professores,
+            'aulas_acao' => $aulas_acao
         ]);
 
      
@@ -53,12 +69,36 @@ class AulasController extends Controller
     if(session()->get('logado')<>'sim'){
         return view('auth.login');
      }
+
+        $professor_id = session()->get('professor_id');
+
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('nome')->get();  
         $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
+
+       if(session()->get('professor_id')<>''){
+
+            $professores = Professor::findOrFail($professor_id);
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->get();
+   
+        }
+
+
+    //   dd($turmas);
 
         return view('frequencia.create',[
             'turmas' => $turmas,
@@ -74,13 +114,38 @@ class AulasController extends Controller
     if(session()->get('logado')<>'sim'){
         return view('auth.login');
      }
+
+
+
+        $professor_id = session()->get('professor_id');
+
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('id')->get();  
+        $disciplinas = Disciplina::query()->orderBy('nome')->get();  
         $aulas = Aulas::query()->orderBy('data', 'desc') ->get();
       
         $professores = Professor::query()->orderBy('nome')->get();
-        
+
+       if(session()->get('professor_id')<>''){
+
+            $professores = Professor::findOrFail($professor_id);
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->get();
+   
+        }
+
+
+       //dd($turmas);   
         return view('frequencia.create',[
             'turmas' => $turmas,
             'cursos' => $cursos,            
