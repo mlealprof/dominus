@@ -49,6 +49,10 @@ class AulasController extends Controller
 
    public function nova()
     {
+
+    if(session()->get('logado')<>'sim'){
+        return view('auth.login');
+     }
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('nome')->get();  
@@ -66,6 +70,10 @@ class AulasController extends Controller
     }
 
     public function show(){
+
+    if(session()->get('logado')<>'sim'){
+        return view('auth.login');
+     }
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  

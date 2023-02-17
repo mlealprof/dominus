@@ -25,7 +25,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                @if (session()->get('professor_id')=='')
                 <li class="nav-item dropdown">
+
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cadastros
                   </a>
@@ -39,6 +43,9 @@
                   </ul>
 
                 </li>
+                @endif
+
+
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Lançamentos
@@ -57,7 +64,11 @@
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/relatoriosfrequencia">Frequências</a></li>
                     <li><a class="dropdown-item" href="/relatoriosnotas">Notas</a></li>
-                    <li><a class="dropdown-item" href="/boletim">Ficha Individual</a></li>
+
+                    @if (session()->get('professor_id')=='')
+                        <li><a class="dropdown-item" href="/boletim">Ficha Individual</a></li>
+                    @endif
+
                   </ul>
                   
                 </li>
