@@ -15,6 +15,9 @@ class ProfessoresController extends Controller
      */
     public function index()
     {
+     if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
         $professores = Professor::query()->orderBy('nome')->get();
         return view('professores.index')->with('professores', $professores);
     }

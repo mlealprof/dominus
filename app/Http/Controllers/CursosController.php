@@ -14,6 +14,9 @@ class CursosController extends Controller
      */
     public function index()
     {
+     if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
         $cursos = Curso::query()->orderBy('id')->get();
 
         return view('cursos.index')

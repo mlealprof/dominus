@@ -9,6 +9,10 @@ class DisciplinaController extends Controller
 {
     public function index()
     {
+
+     if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
         $disciplinas = Disciplina::query()->orderBy('id')->get();
 
 

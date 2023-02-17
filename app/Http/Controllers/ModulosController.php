@@ -15,6 +15,9 @@ class ModulosController extends Controller
      */
     public function index()
     {
+         if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+            return view('auth.login');
+         }
         $modulos = Modulo::query()->orderBy('nome')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
 

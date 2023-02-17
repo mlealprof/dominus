@@ -13,8 +13,12 @@ class AlunosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()    
     {
+
+        if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
         $alunos = Aluno::query()->orderBy('nome')->get();
         return view('alunos.index')->with('alunos', $alunos);
     }

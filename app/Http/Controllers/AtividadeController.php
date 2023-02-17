@@ -27,6 +27,10 @@ class AtividadeController extends Controller
 
    public function index()
     {
+
+      if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  

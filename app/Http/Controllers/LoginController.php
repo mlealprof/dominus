@@ -67,6 +67,11 @@ class LoginController extends Controller
 
 
     public function usuario_index(Request $request){
+
+     if((session()->get('logado')<>'sim')or(session()->get('professor_id')<>'')){
+        return view('auth.login');
+     }
+
       $search = $request->search;  
       $professor_id =  $request->professor_id;  
       $usuarios = User::all();
