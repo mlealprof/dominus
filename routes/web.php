@@ -49,6 +49,7 @@ Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store
 Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
+Route::post('/aulas', [AulasController::class,'filtro'])->name('aulas.filtro');
 
 
 
@@ -65,6 +66,7 @@ Route::get('/atividades/nova', [AtividadeController::class,'nova'])->name('ativi
 Route::post('/atividades/nova', [AtividadeController::class,'store'])->name('atividade.store');
 Route::put('atividades/alterar/{id}', [AtividadeController::class, 'update','$id']);
 Route::delete('atividades/excluir/{id}', [AtividadeController::class,'destroy','$id']);
+Route::post('/atividades', [AtividadeController::class,'filtro'])->name('atividades.filtro');
 
 
 

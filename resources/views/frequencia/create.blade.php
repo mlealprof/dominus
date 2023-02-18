@@ -19,9 +19,7 @@
                 <label class="form-label">*Turma</label>
                 <select class="form-select" id="turma_id" name="turma_id" disabled>
                     <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
-                    @endforeach
+
                 </select>
             </div>
 
@@ -77,7 +75,7 @@
           let value = $('#curso_id').val()
           if (value > 0) {
               $(this).addClass('is-valid')
-            //  addTurmaNovo(value)
+              addTurmaNovo(value)
               $( "#turma_id" ).prop( "disabled", false ).focus();
           } else {
               $(this).removeClass('is-valid')

@@ -16,7 +16,7 @@ class LoginController extends Controller
 
     public function sair(){
         session()->flush();
-        return view('auth.login');        
+        return redirect('/');        
     }
 
     public function home(){

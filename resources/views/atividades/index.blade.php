@@ -5,7 +5,45 @@
             <a href="/atividades/nova" class="btn btn-outline-primary">Nova Atividade</a>
         </div>
     </div>
+    <hr>
+<form method="post" action="{{ route('atividades.filtro') }}">
+  @csrf
+  <div class="row g-3 border rounded-3 pb-3 user-select-none"> 
+    <div class="col-sm-3">
+      <select  class="form-select" id="curso_id" name="curso_id" >
+        <option value="0">Curso</option>
+        @foreach ($cursos as $curso)    
+            <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
+        @endforeach
+      </select>
+    </div>  
 
+      <div class="col-sm-3">
+      <select class="form-select" id="turma_id" name="turma_id" >
+            <option value="0">Turma</option>
+            @foreach ($turmas as $turma)    
+                <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
+            @endforeach
+                      
+      </select>
+    </div>   
+
+    <div class="col-sm-3">
+      <select class="form-select" id="disciplina_id" name="disciplina_id" >
+          <option value="0">Disciplina</option>
+          @foreach ($disciplinas as $disciplina)    
+              <option value="{{$disciplina->disciplina_id}}">{{$disciplina->disciplina}}</option>
+          @endforeach
+      </select>
+    </div>
+    <div class="col-sm-2">
+      <button class="float-right" type="submit">Filtrar</button>
+    </div>
+  </div>
+
+
+</form>
+<hr>
 <table id="tableAulas" class="display table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -73,7 +111,7 @@
                           <select class="form-select" id="editarCurso" name="curso_id" value="teste">
                               <option value="0">Selecione</option>
                               @foreach ($cursos as $curso)
-                                  <option value="{{$curso->id}}">{{$curso->nome}}</option>
+                                  <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
                               @endforeach
                           </select>
                       </div>
@@ -82,7 +120,7 @@
                           <select class="form-select" id="editarTurma" name="turma_id">
                               <option value="0">Selecione</option>
                               @foreach ($turmas as $turma)
-                                  <option value="{{$turma->id}}">{{$turma->nome}}</option>
+                                  <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
                               @endforeach
                           </select>
                      </div>
@@ -91,7 +129,7 @@
                       <select class="form-select" id="editarDisciplina" name="disciplina_id">
                           <option value="0">Selecione</option>
                           @foreach ($disciplinas as $disciplina)
-                              <option value="{{$disciplina->id}}">{{$disciplina->nome}}</option>
+                              <option value="{{$disciplina->disciplina_id}}">{{$disciplina->disciplina}}</option>
                           @endforeach
                       </select>
                      </div>
@@ -172,6 +210,93 @@
           $('#modalExcluirNome').html($(this).data('nome'))
           $('#modalExcluir').modal('show');
       });
+
+
+
+
+      // Valida o campo curso
+      $('#curso_id').change(function(e){
+          let value = $('#curso_id').val()
+          if (value > 0) {
+              $(this).addClass('is-valid')
+              addTurmaNovo(value)
+              $( "#turma_id" ).prop( "disabled", false ).focus();
+          } else {
+              $(this).removeClass('is-valid')
+              $( "#turma_id" ).html('<option value"0">Selecione...</option>').prop( "disabled", true ).removeClass('is-valid');
+          }
+      });
+
+      // Valida o campo turma
+      $('#turma_id').change(function(e){
+          let value = $('#turma_id').val()
+          if (value > 0) {
+             $(this).addClass('is-valid')
+              addDisciplinaNovo(value)
+              $( "#disciplina_id" ).prop( "disabled", false ).focus();          
+          } else {
+              $(this).removeClass('is-valid')
+              $( "#disciplina_id" ).html('<option value"0">Selecione...</option>').prop( "disabled",  true ).removeClass('is-valid');
+          }
+      });
+
+      // Adiciona turma de Acordo com o curso escolhido
+      function addTurmaNovo(turma){
+          let url = "{{url('/getturma')}}/"+turma;
+          $.get( url, function( data ) {
+              $('#turma_id').html(data);
+          });
+      }
+
+
+
+
+
+
+      // Valida o campo Disciplina
+      $('#disciplina_id').change(function(e){
+          let value = $('#turma_id').val()
+          if (value > 0) {
+              $(this).addClass('is-valid')              
+              $( "#btnNovo" ).prop( "disabled", false ).focus();
+              addProfessor($('#disciplina_id').val())
+          } else {
+              $(this).removeClass('is-valid')
+              $( "#btnNovo" ).val('').prop( "disabled", true );
+          }
+      });
+
+      // Adiciona Disciplina de Acordo com a turma escolhido
+      function addDisciplinaNovo(turma){
+          let url = "{{url('/getdisciplina')}}/"+turma;
+          $.get( url, function( data ) {
+              $('#disciplina_id').html(data);
+          });
+      }
+
+
+
+
+
+
+
+      // Adiciona Professor de Acordo com a disciplina escolhido
+      function addProfessor(professor){         
+           let url = "{{url('/getprofessor')}}/"+professor;
+          $.get( url, function( data ) {
+              $('#professor_id').val(data);
+          });          
+                       
+      }
+
+
+
+
+
+
+
+
+
 
 </script>
 

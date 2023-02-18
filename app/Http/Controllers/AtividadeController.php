@@ -42,6 +42,35 @@ class AtividadeController extends Controller
 
         if(session()->get('professor_id')<>''){
 
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')      
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                            ->where('turma_professor.professor_id','=',$professor_id)
+                            
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+
             $atividades = DB::table('atividade')
                             ->join('cursos','cursos.id','=','atividade.curso_id')
                             ->join('turmas','atividade.turma_id','=','turmas.id')
@@ -53,11 +82,37 @@ class AtividadeController extends Controller
                             ->get();
             
         }else{
+
+         $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')                                                   
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')                                                   
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                          
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
              $atividades = DB::table('atividade')
                             ->join('cursos','cursos.id','=','atividade.curso_id')
                             ->join('turmas','atividade.turma_id','=','turmas.id')
                             ->join('turma_professor','atividade.turma_id','=','turma_professor.turma_id')
                             ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')
+                            ->where('cursos.id','=','0') 
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',)                     
                             ->get();
 
@@ -241,6 +296,135 @@ class AtividadeController extends Controller
                 ->setPaper('A4', 'landscape')
                 ->stream();
 
+    }
+
+    public function filtro(Request $request){
+        if((session()->get('logado')<>'sim')){
+                return view('auth.login');
+             }
+
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;        
+        $disciplina_id = $request->disciplina_id;    
+        $professor_id = session()->get('professor_id');
+
+        if ($curso_id =='0'){
+            $curso_id ='%%';          
+        }
+        if ($turma_id =='0'){
+            $turma_id ='%%';          
+        }
+        if ($disciplina_id =='0'){
+            $disciplina_id ='%%';          
+        }
+
+        
+
+
+        if(session()->get('professor_id')<>''){
+
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                            ->where('turma_professor.professor_id','=',$professor_id)
+                            
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+
+            $atividades = DB::table('atividade')
+                            ->join('cursos','cursos.id','=','atividade.curso_id')
+                            ->join('turmas','atividade.turma_id','=','turmas.id')
+                            ->join('turma_professor','atividade.turma_id','=','turma_professor.turma_id')
+                            ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')                           
+                            ->where('turma_professor.professor_id','like',$professor_id)  
+                            ->where('turmas.id','like',$turma_id)  
+                            ->where('cursos.id','like',$curso_id)
+                            ->where('disciplinas.id','like',$disciplina_id)
+                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
+
+                            ->get();
+            
+        }else{
+
+             $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                                                         
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                                                      
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                          
+                            
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+
+            $atividades = DB::table('atividade')
+                            ->join('cursos','cursos.id','=','atividade.curso_id')
+                            ->join('turmas','atividade.turma_id','=','turmas.id')
+                            ->join('turma_professor','atividade.turma_id','=','turma_professor.turma_id')
+                            ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')                           
+                          
+                            ->where('turmas.id','like',$turma_id)  
+                            ->where('cursos.id','like',$curso_id)
+                            ->where('disciplinas.id','like',$disciplina_id)
+                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
+
+                            ->get();
+
+        }
+         
+     
+        //dd($disciplinas);
+        //dd($atividades);
+        
+      
+        $professores = Professor::query()->orderBy('nome')->get();
+        return view('atividades.index',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'atividades' => $atividades,
+            'professores' => $professores
+        ]);
     }
 
 
