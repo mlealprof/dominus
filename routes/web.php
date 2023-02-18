@@ -130,19 +130,52 @@ Route::get('/getmodulo/{id}', function ($id) {
 })->name('get.modulo');
 
 Route::get('/getturma/{id}', function ($id) {
-    $result = DB::table('turmas')->where('curso', $id)->get();
+    $professor_id = session()->get('professor_id');
+    if(session()->get('professor_id')<>''){
+      $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                            
+                            ->join('cursos','cursos.id','=','turmas.curso')   
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->where('cursos.id','=',$id)  
+                            ->select('turmas.nome as turma','turmas.id as turma_id')
+                            ->distinct('turmas.nome')                                                         
+                            ->get();
+    }else{
+       $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                            
+                            ->join('cursos','cursos.id','=','turmas.curso')   
+                            ->where('cursos.id','=',$id)
+                            ->select('turmas.nome as turma','turmas.id as turma_id')                            
+                            ->distinct('turmas.nome')
+                            ->get();
+    }
+
+    
     echo '<option value="0">Selecione...</option>';
-    foreach ($result as $turma) {
-        echo '<option value="'.$turma->id .'">' .$turma->nome.'</option>';
+    foreach ($turmas as $turma) {
+        echo '<option value="'.$turma->turma_id .'">' .$turma->turma.'</option>';
     }
 })->name('get.turma');
 
 
 Route::get('/getturmamodulo/{id}', function ($id) {
-    $turmas = DB::table('turmas')->where('modulo', $id)->get();
+    $professor_id = session()->get('professor_id');
+    if(session()->get('professor_id')<>''){
+      $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                            
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id')                            
+                            ->get();
+    }else{
+       $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->select('turmas.nome as turma','turmas.id as turma_id')                            
+                            ->get();
+    } 
+
     echo '<option value="0">Selecione...</option>';
     foreach ($turmas as $turma) {
-        echo '<option value="'.$turma->id .'">' .$turma->nome.'</option>';
+        echo '<option value="'.$turma->turma_id .'">' .$turma->turma.'</option>';
     }
 })->name('get.turmamodulo');
 
@@ -151,7 +184,11 @@ Route::get('/getturmamodulo/{id}', function ($id) {
 Route::get('/getdisciplina/{id}', function ($id) {    
 
     $professor_id = session()->get('professor_id');
-    $resultados = DB::table('turma_professor')->where('turma_id', $id)->where('professor_id', $professor_id)->get();     
+    if(session()->get('professor_id')<>''){
+       $resultados = DB::table('turma_professor')->where('turma_id', $id)->where('professor_id', $professor_id)->get();     
+    }else{
+       $resultados = DB::table('turma_professor')->where('turma_id', $id)->get();      
+    }
 
     
 
@@ -167,8 +204,17 @@ Route::get('/getdisciplina/{id}', function ($id) {
 
 
 Route::get('/getprofessor/{id}', function ($id) {    
+    $professor_id = session()->get('professor_id');
+    if(session()->get('professor_id')<>''){
+       $resultados = DB::table('turma_professor')->where('disciplina_id', $id)->where('professor_id', $professor_id)->get();     
+    }else{
+       $resultados = DB::table('turma_professor')->where('disciplina_id', $id)->get();     
+    }
 
-    $resultados = DB::table('turma_professor')->where('disciplina_id', $id)->get();     
+
+
+
+    
     foreach ($resultados as $turma) {
         $professores = DB::table('professores')->where('id', $turma->professor_id)->get();      
         foreach($professores as $professor){

@@ -8,8 +8,8 @@
                 <label class="form-label">*Curso</label>
                 <select class="form-select" id="curso_id" name="curso_id">
                     <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->curso_id}}">{{$turma->curso}}</option>
+                    @foreach ($cursos as $curso)
+                        <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
                     @endforeach
                 </select>
             </div>
@@ -35,8 +35,11 @@
 
             <div class="col-sm-7">
                 <label class="form-label">*Professor</label>
-                 <input type="hidden" id="professor_id" name="professor_id" value="{{$professores->id}}" >
-                 <input type="text" class="form-select" id="nome_professor" name="nome_professor" value="{{$professores->nome}}" >
+                 <select class="form-select" id="professor_id" name="professor_id" >
+                    <option value="0">Selecione...</option>
+                                
+                </select>
+        
                     
                         
             </div>

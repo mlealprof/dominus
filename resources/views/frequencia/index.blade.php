@@ -6,66 +6,7 @@
         </div>
     </div>
 
-<!--
-    <form class="needs-validation mb-3" action="{{route('aulas.store')}}" method="post">
-        @csrf
-        <div class="row g-3 border rounded-3 pb-3 user-select-none">
-          
-            <div class="col-sm-3">
-                <label class="form-label">*Curso</label>
-                <select class="form-select" id="curso_id" name="curso_id">
-                    <option value="0">Selecione...</option>
-                    @foreach ($cursos as $curso)
-                        <option value="{{$curso->id}}">{{$curso->nome}}</option>
-                    @endforeach
-                </select>
-            </div>
 
-
-            <div class="col-sm-4">
-                <label class="form-label">*Turma</label>
-                <select class="form-select" id="turma_id" name="turma_id" disabled>
-                    <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->nome}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-sm-4">
-                <label class="form-label">*Disciplina</label>
-                <select class="form-select" id="disciplina_id" name="disciplina_id" disabled >
-                    <option value="0">Selecione...</option>
-                   @foreach ($disciplinas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->disciplina}}</option>
-                    @endforeach
-                    
-                </select>
-            </div>
-
-            <div class="col-sm-3">
-                <label class="form-label">Professor</label>
-                <input type="text" class="form-control   " name="professor_id"  id='professor_id' disabled>
-            </div>
-
-            <div class="col-sm-3">
-                <label class="form-label">Data Inicial</label>
-                <input type="date" class="form-control  "   name="data" >
-            </div>
-
-            <div class="col-sm-3">
-                <label class="form-label">Data Final</label>
-                <input type="date" class="form-control  "   name="data" >
-            </div>
-
-
-            <div class="col-sm-2 align-self-end text-end ">
-                <button class="btn btn-outline-primary" type="submit" id="btnNovo" disabled>Filtrar</button>
-            </div>
-        </div>
-    </form>
-
--->
 
 <table id="tableAulas" class="display table table-striped" style="width:100%">
             <thead>
@@ -80,32 +21,17 @@
             <tbody>
                 @foreach ($aulas as $aula)
                 <tr>
-                    @foreach ($cursos as $curso)
-                       @if($aula->curso_id == $curso->id)
-                        <td>{{ $curso->nome }}</td>
-                       @endif
-                    @endforeach
-
-                   
-                    @foreach ($turmas as $turma)
-                       @if($aula->turma_id ==$turma->id)
-                        <td>{{ $turma->nome }}</td>
-                       @endif
-                    @endforeach
-
-                    
-                        <td>{{ $aula->nome }}</td>
-                    
-                    
-                     
           
-                    <td>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}}</td>
+                     <td>{{ $aula->curso }}</td>
+                     <td>{{ $aula->turma }}</td>
+                     <td>{{ $aula->disciplina }}</td>
+                     <td>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}}</td>
                    <td class="text-end">
                     <div class="">
                         <a href="aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>  
                         @foreach ($aulas_acao as $aul)
                            @if ($aul->id == $aula->id)
-                            <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aula->curso_id }}" data-turma="{{ $aula->turma_id }}"  data-disciplina="{{ $aula->disciplina_id }}" data-professor="{{ $aula->professor_id }}" data-data="{{ $aula->data }}" data-conteudo="{{ $aula->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aul]) }}">
+                            <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aul->curso_id }}" data-turma="{{ $aul->turma_id }}"  data-disciplina="{{ $aul->disciplina_id }}" data-professor="{{ $aul->professor_id }}" data-data="{{ $aul->data }}" data-conteudo="{{ $aul->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aul]) }}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                            </a>
 

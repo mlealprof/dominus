@@ -8,8 +8,8 @@
                 <label class="form-label">*Curso</label>
                 <select class="form-select" id="curso_id" name="curso_id">
                     <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->curso_id}}">{{$turma->curso}}</option>
+                    @foreach ($cursos as $curso)
+                        <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
                     @endforeach
                 </select>
             </div>
@@ -19,9 +19,7 @@
                 <label class="form-label">*Turma</label>
                 <select class="form-select" id="turma_id" name="turma_id" disabled>
                     <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
-                    @endforeach
+                    
                 </select>
             </div>
 
@@ -32,10 +30,14 @@
                 </select>
             </div>
 
+     
             <div class="col-sm-7">
                 <label class="form-label">*Professor</label>
-                 <input type="hidden" id="professor_id" name="professor_id" value="{{$professores->id}}" >
-                 <input type="text" class="form-select" id="nome_professor" name="nome_professor" value="{{$professores->nome}}" >
+                 <select class="form-select" id="professor_id" name="professor_id" >
+                    <option value="0">Selecione...</option>
+                                
+                </select>
+        
                     
                         
             </div>
@@ -78,7 +80,7 @@
           let value = $('#curso_id').val()
           if (value > 0) {
               $(this).addClass('is-valid')
-           //   addTurmaNovo(value)
+             addTurmaNovo(value)
               $( "#turma_id" ).prop( "disabled", false ).focus();
           } else {
               $(this).removeClass('is-valid')
@@ -91,7 +93,7 @@
           let value = $('#turma_id').val()
           if (value > 0) {
              $(this).addClass('is-valid')
-              addDisciplinaNovo(value)
+             addDisciplinaNovo(value)
               $( "#disciplina_id" ).prop( "disabled", false ).focus();          
           } else {
               $(this).removeClass('is-valid')
@@ -113,7 +115,7 @@
           if (value > 0) {
               $(this).addClass('is-valid')
               $("#data").focus();
-             // addProfessor($('#disciplina_id').val())
+              addProfessor($('#disciplina_id').val())
           } else {
               $(this).removeClass('is-valid')              
           }

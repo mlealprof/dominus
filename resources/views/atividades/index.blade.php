@@ -20,17 +20,14 @@
             <tbody>
                 @foreach ($atividades as $atividade)
                 <tr>
-                    @foreach ($cursos as $curso)
-                       @if($atividade->curso_id == $curso->id)
-                        <td>{{ $curso->nome }}</td>
-                       @endif
-                    @endforeach
-
+ 
+                        <td>{{ $atividade->curso }}</td>
+ 
          
                         <td>{{ $atividade->turma}}</td>
          
                    
-                        <td>{{ $atividade->nome }}</td>
+                        <td>{{ $atividade->disciplina }}</td>
                    
                     
                      
