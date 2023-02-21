@@ -16,6 +16,7 @@ class CreateTurmaProfessorTable extends Migration
         Schema::create('turma_professor', function (Blueprint $table) {
             $table->id();
             $table->integer('turma_id')->unsigned();
+            $table->integer('modulo_id')->unsigned();
             $table->integer('professor_id')->unsigned();
             $table->integer('disciplina_id')->unsigned();
             $table->string('dia_semana');

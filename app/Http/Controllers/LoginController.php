@@ -102,10 +102,15 @@ class LoginController extends Controller
         ]);
     }
     public function usuario_store(Request $request,User $usuario) {
-        $usuario->name = $request->nome;
+
+        $professor_id =$request->professor_id;
+        if ($professor_id == ''){
+            $usuario->name = 'ADMIN';
+        }else
+           $usuario->name = $request->nome;
         $usuario->cpf = $request->cpf; 
         $usuario->password =$request->senha ;       
-        $usuario->professor_id =$request->professor_id ;       
+        $usuario->$professor_id;       
 
         $usuario->save();
 
