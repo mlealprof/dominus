@@ -34,6 +34,7 @@ class FrequenciaController extends Controller
                       ->join('alunos','frequencia.aluno_id','=','alunos.id')
                       ->select('frequencia.*','alunos.nome')
                       ->where('frequencia.aulas_id','=', $id)
+                      ->orderBy('alunos.nome', 'ASC')
                       ->get();
 
       

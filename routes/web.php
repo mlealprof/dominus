@@ -50,13 +50,12 @@ Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store'
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
 Route::post('/aulas', [AulasController::class,'filtro'])->name('aulas.filtro');
-
-
+Route::post('/aulas/nova', [AulasController::class,'store'])->name('aulas.store');
 
 Route::get('pdf', [FrequenciaController::class, 'GeraPDF']);
 
 
-Route::get('/quadro_aviso', [HomeController::class,'salvar']);
+
 Route::post('/quadro_aviso', [HomeController::class,'salvar']);
 
 

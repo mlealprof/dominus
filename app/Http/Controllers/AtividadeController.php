@@ -78,6 +78,7 @@ class AtividadeController extends Controller
                             ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')                           
                             ->where('turma_professor.professor_id','=',$professor_id)  
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
+                            
 
                             ->get();
             
@@ -139,10 +140,9 @@ class AtividadeController extends Controller
         $turmas = Turma::query()->orderBy('id')->get();        
         $professor_id = session()->get('professor_id');
 
-         $disciplinas = Disciplina::query()->orderBy('id')->get();   
-
-         $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
-          $professores = Professor::query()->orderBy('nome')->get();
+        $disciplinas = Disciplina::query()->orderBy('id')->get();   
+        $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
+        $professores = Professor::query()->orderBy('nome')->get();
 
         if(session()->get('professor_id')<>''){
             
@@ -319,7 +319,7 @@ class AtividadeController extends Controller
             $disciplina_id ='%%';          
         }
 
-        
+       
 
 
         if(session()->get('professor_id')<>''){
@@ -362,7 +362,8 @@ class AtividadeController extends Controller
                             ->where('turmas.id','like',$turma_id)  
                             ->where('cursos.id','like',$curso_id)
                             ->where('disciplinas.id','like',$disciplina_id)
-                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
+                            ->where('atividade.disciplina_id','like',$disciplina_id)
+                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
 
                             ->get();
             
@@ -406,15 +407,17 @@ class AtividadeController extends Controller
                             ->where('turmas.id','like',$turma_id)  
                             ->where('cursos.id','like',$curso_id)
                             ->where('disciplinas.id','like',$disciplina_id)
-                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
+                            ->where('atividade.disciplina_id','like',$disciplina_id)
+                            ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
 
                             ->get();
+                         
 
         }
          
      
         //dd($disciplinas);
-        //dd($atividades);
+       // dd($atividades);
         
       
         $professores = Professor::query()->orderBy('nome')->get();

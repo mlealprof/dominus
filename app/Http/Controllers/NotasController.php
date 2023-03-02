@@ -22,7 +22,7 @@ class NotasController extends Controller
 {
        public function index($id)
     {
-        $alunos = Aluno::all();
+        $alunos = Aluno::query()->orderBy('nome', 'ASC')->get();
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  

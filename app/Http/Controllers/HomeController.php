@@ -7,22 +7,32 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return view('home');
+
+        $arquivo = fopen('aviso.txt', 'r');
+        $aviso='';
+        if (file_exists("aviso.txt")) {
+            $aviso = file_get_contents("aviso.txt");
+            $aviso_array = explode("\n", $aviso);
+            
+        } 
+
+        return view('home',[
+             'aviso'=> $aviso_array
+        ]);
     }
 
     public function salvar(Request $request){
 
         
+        $conteudo = $request->conteudo;
 
-        $arquivo = fopen('aviso.txt','r');
-        if ($arquivo == false) die('Não foi possível abrir o arquivo.');
+        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . "/aviso.txt","wb");
 
-        $arquivo = fopen('aviso.txt','w+');
-        if ($arquivo) {
-            if (!fwrite($arquivo, $request->aviso)) die('Não foi possível atualizar o arquivo.');
-            fclose($arquivo);
-        }
-             dd($request->aviso);
-        return viem ('home');
+        fwrite($fp,$conteudo);
+
+        fclose($fp);
+
+             
+        return redirect ('/home');
     }
 }
