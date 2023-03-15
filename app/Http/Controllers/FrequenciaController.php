@@ -128,12 +128,95 @@ public function store($id)
     }
     public function relatorio()
     {
-        $alunos = Aluno::all();
+
+
+        if((session()->get('logado')<>'sim')){
+             return view('auth.login');
+       }
+
+        $alunos = Aluno::all();      
+       
+        
+        $modulos = Modulo::all(); 
+        
         $turmas = Turma::query()->orderBy('id')->get();
         $cursos = Curso::query()->orderBy('nome')->get();
-        $disciplinas = Disciplina::query()->orderBy('id')->get(); 
+        $professor_id = session()->get('professor_id');
+
+         $disciplinas = Disciplina::query()->orderBy('id')->get();   
+
+
+        if(session()->get('professor_id')<>''){
+
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')      
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                            ->where('turma_professor.professor_id','=',$professor_id)
+                            
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+
+
+            
+        }else{
+
+         $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')                                                   
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')                                                   
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                          
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+        }
+         
+     
+       
+      
         $professores = Professor::query()->orderBy('nome')->get();
-        $modulos = Modulo::all();
+
+
+
+
 
         return view('frequencia.relatoriosfrequencia',[
             'turmas' => $turmas,

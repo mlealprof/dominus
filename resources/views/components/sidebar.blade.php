@@ -115,7 +115,7 @@
                 </a>
             </li>
             <li>
-                <a href="/relatoriosfrequencia" class="navs btn-sm">
+                <a href="/aulas_lancadas" class="navs btn-sm">
                     <img src="{{ asset('icons/aulas.png') }}" style="width: 15%" />
                     Aulas Lançadas
                 </a>

@@ -9,7 +9,7 @@ class Curso extends Model
 {
     use HasFactory;
 
-    public function modulos(){
+    public function cursos(){
         return $this->hasMany(Modulo::class,'curso_id','id');
     }
 }

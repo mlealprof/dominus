@@ -10,7 +10,7 @@
                 <select class="form-select" id="curso_id" name="curso_id">
                     <option value="0">Selecione...</option>
                     @foreach ($cursos as $curso)
-                        <option value="{{$curso->id}}">{{$curso->nome}}</option>
+                        <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
                     @endforeach
                 </select>
             </div>
@@ -30,9 +30,7 @@
                 <label class="form-label">*Turma</label>
                 <select class="form-select" id="turma_id" name="turma_id" disabled>
                     <option value="0">Selecione...</option>
-                    @foreach ($turmas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->nome}}</option>
-                    @endforeach
+
                 </select>
             </div>
 
@@ -40,9 +38,7 @@
                 <label class="form-label">*Disciplina</label>
                 <select class="form-select" id="disciplina_id" name="disciplina_id" disabled >
                     <option value="0">Selecione...</option>
-                   @foreach ($disciplinas as $turma)
-                        <option value="{{$turma->id}}">{{$turma->disciplina}}</option>
-                    @endforeach
+  
                     
                 </select>
             </div>

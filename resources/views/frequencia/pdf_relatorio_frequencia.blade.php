@@ -40,7 +40,7 @@
         </tr>
       
 </table><br>
-<font size="0.4em">
+<font size="0.8em">
 
 <table  id="taleta" border="0.5">
             <thead>

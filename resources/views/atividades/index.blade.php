@@ -21,9 +21,7 @@
       <div class="col-sm-3">
       <select class="form-select" id="turma_id" name="turma_id" >
             <option value="0">Turma</option>
-            @foreach ($turmas as $turma)    
-                <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
-            @endforeach
+
                       
       </select>
     </div>   
@@ -31,9 +29,7 @@
     <div class="col-sm-3">
       <select class="form-select" id="disciplina_id" name="disciplina_id" >
           <option value="0">Disciplina</option>
-          @foreach ($disciplinas as $disciplina)    
-              <option value="{{$disciplina->disciplina_id}}">{{$disciplina->disciplina}}</option>
-          @endforeach
+
       </select>
     </div>
     <div class="col-sm-2">

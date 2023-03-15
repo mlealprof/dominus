@@ -121,6 +121,16 @@ Route::get('/usuarios/novo', [LoginController::class,'usuario_index'])->name('us
 Route::get('/usuarios/salvar', [LoginController::class,'usuario_store'])->name('usuario.store');
 
 
+
+
+
+
+
+
+
+
+
+
 //Autocomplete
 Route::get('/getmodulo/{id}', function ($id) {
     $result = DB::table('modulos')->where('curso_id', $id)->get();
@@ -130,8 +140,12 @@ Route::get('/getmodulo/{id}', function ($id) {
     }
 })->name('get.modulo');
 
+
+
+
 Route::get('/getturma/{id}', function ($id) {
     $professor_id = session()->get('professor_id');
+
     if(session()->get('professor_id')<>''){
       $turmas = DB::table('turmas')
                             ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                            
@@ -159,21 +173,31 @@ Route::get('/getturma/{id}', function ($id) {
 })->name('get.turma');
 
 
+
+
+
+
 Route::get('/getturmamodulo/{id}', function ($id) {
     $professor_id = session()->get('professor_id');
+
     if(session()->get('professor_id')<>''){
       $turmas = DB::table('turmas')
-                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                            
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')                           
+                            ->where('turmas.modulo','=',$id)
                             ->where('turma_professor.professor_id','=',$professor_id)                              
                             ->select('turmas.nome as turma','turmas.id as turma_id')                            
+                            ->distinct('turmas.nome') 
                             ->get();
     }else{
        $turmas = DB::table('turmas')
                             ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
-                            ->select('turmas.nome as turma','turmas.id as turma_id')                            
+                            
+                            ->where('turmas.modulo','=',$id)
+                           
+                            ->select('turmas.nome as turma','turmas.id as turma_id') 
+                            ->distinct('turmas.nome')                           
                             ->get();
     } 
-
     echo '<option value="0">Selecione...</option>';
     foreach ($turmas as $turma) {
         echo '<option value="'.$turma->turma_id .'">' .$turma->turma.'</option>';
