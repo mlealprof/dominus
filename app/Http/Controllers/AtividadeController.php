@@ -76,7 +76,7 @@ class AtividadeController extends Controller
                             ->join('turmas','atividade.turma_id','=','turmas.id')
                             ->join('turma_professor','atividade.turma_id','=','turma_professor.turma_id')
                             ->join('disciplinas','turma_professor.disciplina_id','=','disciplinas.id')                           
-                            ->where('turma_professor.professor_id','=',$professor_id)  
+                            ->where('turma_professor.professor_id','=','0')  
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso','turmas.nome as nome',) 
                             
 
@@ -361,8 +361,8 @@ class AtividadeController extends Controller
                             ->where('turma_professor.professor_id','like',$professor_id)  
                             ->where('turmas.id','like',$turma_id)  
                             ->where('cursos.id','like',$curso_id)
-                            ->where('disciplinas.id','like',$disciplina_id)
-                            ->where('atividade.disciplina_id','like',$disciplina_id)
+                            ->where('disciplinas.id','=',$disciplina_id)
+                            ->where('atividade.disciplina_id','=',$disciplina_id)
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
 
                             ->get();

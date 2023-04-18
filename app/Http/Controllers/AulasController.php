@@ -70,7 +70,7 @@ class AulasController extends Controller
                                 ->join('turmas','turmas.id','=','aulas.turma_id')
                                 ->join('professores','professores.id','=','aulas.professor_id')
                                 ->join('disciplinas','disciplinas.id','=','aulas.disciplina_id')
-                                ->where('aulas.professor_id','=',$professor_id)                              
+                                ->where('aulas.professor_id','=','0')                              
                                 ->select('cursos.nome as curso','turmas.nome as turma','professores.nome as professor','aulas.*','aulas.id','disciplinas.nome as disciplina')
                                 ->get();
 
@@ -311,7 +311,7 @@ class AulasController extends Controller
                                 ->where('aulas.professor_id','=',$professor_id)                              
                                  ->where('turmas.id','like',$turma_id)  
                                 ->where('cursos.id','like',$curso_id)
-                                ->where('disciplinas.id','like',$disciplina_id)
+                                ->where('disciplinas.id','=',$disciplina_id)
                                 ->select('cursos.nome as curso','turmas.nome as turma','professores.nome as professor','aulas.*','aulas.id','disciplinas.nome as disciplina')
                                 ->get();
             
