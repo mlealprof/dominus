@@ -406,8 +406,8 @@ class AtividadeController extends Controller
                           
                             ->where('turmas.id','like',$turma_id)  
                             ->where('cursos.id','like',$curso_id)
-                            ->where('disciplinas.id','like',$disciplina_id)
-                            ->where('atividade.disciplina_id','like',$disciplina_id)
+                            ->where('disciplinas.id','=',$disciplina_id)
+                            ->where('atividade.disciplina_id','=',$disciplina_id)
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
 
                             ->get();

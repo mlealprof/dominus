@@ -82,8 +82,10 @@ Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$
 Route::get('relatoriosnotas', [NotasController::class, 'relatorios']);
 Route::post('/relatorios/geratargetanotas', [AtividadeController::class,'relatorio'])->name('atividade.relatorio');
 Route::get('relatoriosfrequencia', [FrequenciaController::class, 'relatorio']);
+Route::get('relatoriosaula', [FrequenciaController::class, 'relatorioaula']);
 
 Route::post('/relatorios/geratargetafrequencia', [FrequenciaController::class,'taleta'])->name('frequencia.relatorio');
+Route::post('/relatorios/geratargetaaula', [FrequenciaController::class,'taleta_aula'])->name('aula.relatorio');
 
 Route::get('/boletim', [NotasController::class, 'boletim']);
 
@@ -132,6 +134,14 @@ Route::get('/usuarios/salvar', [LoginController::class,'usuario_store'])->name('
 
 
 //Autocomplete
+
+Route::get('/alteraNota/{id}/{nota}', [NotasController::class, 'altera_nota'])->name('get.altera_nota');
+
+
+
+
+
+
 Route::get('/getmodulo/{id}', function ($id) {
     $result = DB::table('modulos')->where('curso_id', $id)->get();
     echo '<option value="0">Selecione...</option>';

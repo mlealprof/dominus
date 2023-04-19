@@ -95,6 +95,17 @@ class NotasController extends Controller
         return redirect('atividades/notas/'.$nota->atividade_id);
     }
 
+
+     public function altera_nota($id,$nota)
+    {
+        $n = Notas::findOrFail($id);
+        $n->nota = $nota;
+        $n->save();  
+
+        return redirect()->back();   
+       
+    }
+
     public function relatorios(){
         
         

@@ -60,7 +60,7 @@
             <tr>
                 <th>Nome</th>
                 <th class="text-end">Nota</th>
-                <th>Ação</th>
+    
             </tr>
         </thead>
         <tbody>
@@ -70,12 +70,12 @@
                     <tr>
                         <td>{{ $aluno->nome }}</td>
                         <td class="text-end">
-                        	{{$nota->nota}}
+                          
+                        	   <input type="text" onblur="altera('{{$nota->id}}')" class="salva" id="{{$nota->id}}" name="{{$nota->id}}" size="3" value="{{$nota->nota}}">
                             
-                        </td>
-                        <td>
-                        	<a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-rota="{{$nota->id}}/alterar" data-nota="{{$nota->nota}}" data-aluno="{{$aluno->nome}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        </td>
+                          
+                            
+                        </td>      
 
                       </tr>
                         	
@@ -87,60 +87,27 @@
             
        
         </tbody>
-    </table>        
-
-
-   <!-- Modal editar Notas - Inicio -->
-    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Editar Nota </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form class="needs-validation" action="" method="get" id="formEditar">
-              <div class="modal-body">
-                  @csrf
-                  @method('put')
-                  <div class="row g-3">     
-                  	  <div class="col-sm-12">
-                      	<label class="form-label">Aluno:</label>
-                      	<input type="text"  class="form-control" name="nome" id="editarAluno" value="" disabled>
-                      </div>
-                      <div class="col-sm-12">                      	
-                          <label class="form-label">Nota:</label>
-                          <input type="text" class="form-control" name="nota" id="editarNota"required>
-                      </div>
-
-                  </div>
-              </div>
-              
-              <div class="modal-footer">
-                <button class="btn btn btn-primary" type="submit">Salvar</button>
-              </div>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- Modal editar Notas - Fim -->
+    </table>     
 
 
 
+<script type="text/javascript">
 
 
-  <script type="text/javascript">
-
-      /* SCRIPTS - EDITAR NOTA - INICIO */
- 
-      $( ".btn-editar" ).on( "click", function() {
-          $('#formEditar').attr('action',$(this).data("rota"))
-          $('#editarAluno').val($(this).data('aluno')) 
-          $('#editarNota').val($(this).data('nota'))                     
-          $('#modalEditar').modal('show');
-      });
+function altera(id){
 
 
-  </script>
+    let  nota = $('#'+id).val();
+    window.location.href = "/alteraNota/"+id+"/"+nota;
+    
+
+}
+
+
+
+</script>
+
+
+
 
 </x-layout>

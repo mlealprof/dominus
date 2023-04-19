@@ -228,6 +228,109 @@ public function store($id)
         ]);
     }
 
+
+    public function relatorioaula()
+    {
+
+
+        if((session()->get('logado')<>'sim')){
+             return view('auth.login');
+       }
+
+        $alunos = Aluno::all();      
+       
+        
+        $modulos = Modulo::all(); 
+        
+        $turmas = Turma::query()->orderBy('id')->get();
+        $cursos = Curso::query()->orderBy('nome')->get();
+        $professor_id = session()->get('professor_id');
+
+         $disciplinas = Disciplina::query()->orderBy('id')->get();   
+
+
+        if(session()->get('professor_id')<>''){
+
+
+            $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->where('turma_professor.professor_id','=',$professor_id)                              
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')      
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                            ->where('turma_professor.professor_id','=',$professor_id)
+                            
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+            
+        }else{
+
+         $turmas = DB::table('turmas')
+                            ->join('turma_professor','turmas.id','=','turma_professor.turma_id')
+                            ->join('cursos','cursos.id','=','turmas.curso')                                                   
+                            ->select('turmas.nome as turma','turmas.id as turma_id','cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('turmas.nome')
+                            ->get();
+
+            $disciplinas = DB::table('disciplinas')
+                            ->join('turma_professor','disciplinas.id','=','turma_professor.disciplina_id')
+                            ->select('disciplinas.id as disciplina_id','disciplinas.nome as disciplina')
+                            ->distinct('disciplinas.nome')                                                   
+                            ->get();
+
+
+           $cursos = DB::table('cursos')
+                            ->join('turmas','turmas.curso','=','cursos.id')
+                            ->join('turma_professor','turma_professor.turma_id','=','turmas.id')                            
+                          
+                            ->select('cursos.nome as curso','cursos.id as curso_id')
+                            ->distinct('cursos.nome')
+
+                            
+                            ->get();
+
+
+        }
+         
+     
+       
+      
+        $professores = Professor::query()->orderBy('nome')->get();
+
+
+
+
+
+        return view('frequencia.relatoriosaula',[
+            'turmas' => $turmas,
+            'cursos' => $cursos,            
+            'disciplinas' => $disciplinas,
+            'professores' => $professores,                  
+            'modulos' => $modulos,
+            'alunos' => $alunos
+        ]);
+    }
+
+
+
+
   public function taleta(Request $request)
     {
 
@@ -277,7 +380,37 @@ public function store($id)
     }
 
 
- 
+ public function taleta_aula(Request $request)
+    {
+
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+
+        $cursos = Curso::findOrFail($curso_id);
+        $disciplinas = Disciplina::findOrFail($disciplina_id);
+        $modulos = Modulo::findOrFail($modulo_id);
+        $professores = Professor::findOrFail($professor_id);
+        $turmas = Turma::findOrFail($turma_id);
+     
+
+
+
+        $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->where('professor_id','=',$professor_id)->get();
+
+
+        $qtaulas = count($aulas);
+    
+
+
+      return \PDF::loadView('frequencia.pdf_relatorio_aulas', compact('turmas','aulas','disciplina_id','disciplinas','curso_id','turma_id','modulo_id','professor_id','professores','modulos','qtaulas','cursos'))
+                ->setPaper('A4', 'landscape')
+                ->stream();
+
+    }
+
 
 
 
