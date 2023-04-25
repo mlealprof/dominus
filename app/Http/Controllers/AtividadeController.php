@@ -364,6 +364,7 @@ class AtividadeController extends Controller
                             ->where('disciplinas.id','=',$disciplina_id)
                             ->where('atividade.disciplina_id','=',$disciplina_id)
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
+                            ->orderBy('atividade.id','desc')
 
                             ->get();
             
@@ -409,7 +410,7 @@ class AtividadeController extends Controller
                             ->where('disciplinas.id','=',$disciplina_id)
                             ->where('atividade.disciplina_id','=',$disciplina_id)
                             ->select('atividade.*','disciplinas.nome as disciplina','turmas.nome as turma','cursos.nome as curso') 
-
+                            ->orderBy('atividade.id','desc')
                             ->get();
                          
 

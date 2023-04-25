@@ -135,7 +135,7 @@ Route::get('/usuarios/salvar', [LoginController::class,'usuario_store'])->name('
 
 //Autocomplete
 
-Route::get('/alteraNota/{id}/{nota}', [NotasController::class, 'altera_nota'])->name('get.altera_nota');
+Route::get('/alteraNota/{id}/{nota}/{atividade}', [NotasController::class, 'altera_nota'])->name('get.altera_nota');
 
 
 

@@ -96,13 +96,14 @@ class NotasController extends Controller
     }
 
 
-     public function altera_nota($id,$nota)
+     public function altera_nota($id,$nota,$atividade)
     {
         $n = Notas::findOrFail($id);
         $n->nota = $nota;
         $n->save();  
+        $id = $id+1;
 
-        return redirect()->back();   
+        return redirect('atividades/notas/'.$atividade.'#'.$id);   
        
     }
 

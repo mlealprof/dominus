@@ -46,7 +46,7 @@
 <hr>
 
 
-<table id="tableAulas" class="display table table-striped" style="width:100%">
+<table id="tableAulas" class="displa table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Curso</th>

@@ -55,7 +55,7 @@
 
        </form>
        
-        <table id="tableAlunosPoTurma" class="display table table-striped" style="width:100%">
+        <table id="tableAlunosPoTurma" class="displa table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -68,15 +68,14 @@
                 @foreach ($notas as $nota)                      
                     @if($nota->aluno_id == $aluno->id)
                     <tr>
-                        <td>{{ $aluno->nome }}</td>
+                        <td id="S">{{ $aluno->nome }}</td>
                         <td class="text-end">
                           
-                        	   <input type="text" onblur="altera('{{$nota->id}}')" class="salva" id="{{$nota->id}}" name="{{$nota->id}}" size="3" value="{{$nota->nota}}">
+                        	   <input type="text" onblur="altera('{{$nota->id}}','{{$nota->atividade_id}}','{{$nota->nota}}')" id="{{$nota->id}}"  class="salva"  name="{{$nota->id}}" size="3" value="{{$nota->nota}}">
                             
                           
                             
                         </td>      
-
                       </tr>
                         	
                     @endif
@@ -94,12 +93,17 @@
 <script type="text/javascript">
 
 
-function altera(id){
+function altera(id,atividade,nota_anterior){
 
 
-    let  nota = $('#'+id).val();
-    window.location.href = "/alteraNota/"+id+"/"+nota;
+    let  nota = $('#'+id).val();   
+    if(nota == nota_anterior)  {
+       //
+    }else{
+    	window.location.href = "/alteraNota/"+id+"/"+nota+"/"+atividade;
+    }
     
+     
 
 }
 

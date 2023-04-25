@@ -313,6 +313,7 @@ class AulasController extends Controller
                                 ->where('cursos.id','=',$curso_id)
                                 ->where('disciplinas.id','=',$disciplina_id)
                                 ->select('cursos.nome as curso','turmas.nome as turma','professores.nome as professor','aulas.*','aulas.id','disciplinas.nome as disciplina')
+                                ->orderBy('aulas.data','desc')
                                 ->get();
             
         }else{
@@ -355,6 +356,7 @@ class AulasController extends Controller
                                 ->where('cursos.id','=',$curso_id)
                                 ->where('disciplinas.id','=',$disciplina_id)
                                 ->select('cursos.nome as curso','turmas.nome as turma','professores.nome as professor','aulas.*','aulas.id','disciplinas.nome as disciplina')
+                                ->orderBy('aulas.data','desc')
                                 ->get();
 
         }

@@ -66,7 +66,7 @@ public function store($id)
        $professores = Professor::query()->orderBy('nome')->get();
        $disciplinas = Disciplina::query()->orderBy('id')->get(); 
        $aulas = Aulas::query()->orderBy('id', 'desc') ->get(); 
-       $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
+       $turmas_aluno = TurmaAluno::query()->orderBy('nome')->get(); 
 
        foreach($aulas as $aula){
             if ($aula->id == $id){                
