@@ -207,7 +207,14 @@ class AtividadeController extends Controller
     }
 
      public function store(Request $request)
-    {        
+    {    
+
+        $recuperacao =  $request->recuperacao; 
+        if ($recuperacao == 'on')  {
+            $recuperacao = 1;
+        }else{
+            $recuperacao = 0;
+        }
         $atividade = new Atividade();
         $atividade->curso_id = $request->curso_id;
         $atividade->turma_id = $request->turma_id;
@@ -215,6 +222,7 @@ class AtividadeController extends Controller
         $atividade->data = $request->data;
         $atividade->conteudo = $request->conteudo;
         $atividade->valor = $request->valor;           
+        $atividade->recuperacao = $recuperacao; 
         $atividade->save();
 
         return redirect('atividades');
@@ -222,6 +230,13 @@ class AtividadeController extends Controller
 
     public function update(Request $request, $id)
     {
+        $recuperacao =  $request->recuperacao; 
+        if ($recuperacao == 'on')  {
+            $recuperacao = 1;
+        }else{
+            $recuperacao = 0;
+        } 
+
         $atividade=Atividade::findOrFail($id);
         $atividade->turma_id = $request->turma_id;
         $atividade->curso_id = $request->curso_id;
@@ -229,6 +244,7 @@ class AtividadeController extends Controller
         $atividade->data = $request->data;
         $atividade->conteudo = $request->conteudo;
         $atividade->valor = $request->valor;
+         $atividade->recuperacao = $recuperacao; 
         $atividade->save();
 
         return redirect('atividades');
@@ -268,18 +284,22 @@ class AtividadeController extends Controller
        
         $turmas_aluno = DB::table('turma_aluno')
                         ->join('alunos','turma_aluno.aluno_id','=','alunos.id')
-                        ->where('turma_aluno.turma_id','=',$turma_id)                       
+                        ->where('turma_aluno.turma_id','=',$turma_id) 
+                        ->orderBy('alunos.nome','asc')                      
                         ->get();
 
-        $atividades = Atividade::where('disciplina_id','=',$disciplina_id)->where('turma_id','=',$turma_id)->where('curso_id','=',$curso_id)->get();
+        $atividades = Atividade::where('disciplina_id','=',$disciplina_id)->where('turma_id','=',$turma_id)->where('curso_id','=',$curso_id)->orderBy('data','asc')->get();
+       
         $total_notas=0;
 
         foreach($atividades as $atividade){
-            $total_notas+=$atividade->valor;
+            if ($atividade->recuperacao=='0'){
+               $total_notas+=$atividade->valor;
+            }
         }
       
-
-        $soma = 
+   
+    
 
         $notas = DB::table('notas')
                 ->join('atividade','notas.atividade_id','=','atividade.id')

@@ -1,13 +1,17 @@
 <x-layout title="Lançando Notas">
 
-	 
+
+	    
+        	
 	 	<form class="needs-validation" action="{{$id}}/lancar" method="post">
 
 	 	@csrf
 	 	<div class="row g-3 border rounded-3 pb-3 user-select-none">
 	 	 @foreach ($atividades as $atividade)
             @if ($atividade->id == $id)
-
+			  @if ($atividade->recuperacao == '1')
+			        	<h1><center> <font color='red'>ATIVIDADE DE RECUPERAÇÃO</font> </center></h1>
+			        @endif	
 	            <div class="col-sm-3">
 	                <h3>Curso:</h3>
 	                    @foreach ($cursos as $curso)

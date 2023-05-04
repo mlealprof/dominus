@@ -68,23 +68,40 @@
                             
                             @foreach ($atividades as $atividade)
                             @php
-                              $achou=false;
+                              $achou=false;        
+                              $recuperacao=0;
                             @endphp
                                @foreach ($notas as $nota)
                                     @if (($nota->aluno_id == $aluno_turma->aluno_id) and ($nota->atividade_id == $atividade->id))
-                                        @php
-                                            $soma+=$nota->nota;
-                                            $achou = true;
-                                        @endphp
+                                       @if ($atividade->recuperacao == '0')
+                                            @php
+                                                $soma+=$nota->nota;                                                
+                                            @endphp  
+                                        @else
+                                           @if ($nota->nota != 0)  
+                                              @php              
+                                                 $recuperacao=$nota->nota;                                                 
+                                              @endphp
+                                           @endif
+
+                                        @endif
+                                        @php                                                
+                                          $achou = true;
+                                        @endphp                                       
+
                                         <td align="center"> {{$nota->nota}}</td>
                                     @endif
                                 @endforeach 
                                 @if ($achou == false)
                                 <td align="center">-</td>
                             @endif                           
-                            @endforeach
-                            
-                            <td align="center">{{$soma}}</td>
+                            @endforeach                           
+                            @if ($recuperacao == 0)
+                               <td align="center">{{$soma}}</td>
+                            @else
+                               <td align="center">{{$recuperacao}}</td>
+                            @endif
+                   
                         </tr>
                      @endforeach
                                             

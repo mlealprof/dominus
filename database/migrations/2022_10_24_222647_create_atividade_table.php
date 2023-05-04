@@ -15,6 +15,7 @@ class CreateAtividadeTable extends Migration
     {
         Schema::create('atividade', function (Blueprint $table) {
             $table->id();
+            $table->boolean('recuperacao');
             $table->integer('curso_id');
             $table->integer('turma_id');
             $table->integer('disciplina_id');

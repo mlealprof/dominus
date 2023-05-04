@@ -46,6 +46,7 @@ Route::get('sair', [LoginController::class, 'sair']);
 Route::resource('aulas',AulasController::class)->names('aulas')->parameters(['aulas'=>'aula']);
 Route::get('aulas/frequencia/{id}', [FrequenciaController::class, 'index'])->name('aulas.frequencia.show');
 Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
+Route::post('aulas/frequencia/{id}/atualizar', [FrequenciaController::class, 'atualizar','$id']);
 Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);

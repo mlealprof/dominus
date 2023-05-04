@@ -74,7 +74,7 @@
                    <td class="text-end">
                     <div class="">
                         <a href="atividades/notas/{{$atividade->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Notas</a>                        
-                        <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $atividade->curso_id }}" data-turma="{{ $atividade->turma_id }}"  data-disciplina="{{ $atividade->disciplina_id }}"  data-data="{{ $atividade->data }}" data-conteudo="{{ $atividade->conteudo }}"  data-valor="{{ $atividade->valor }}" data-rota="atividades/alterar/{{$atividade->id}}">
+                        <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $atividade->curso_id }}" data-turma="{{ $atividade->turma_id }}"  data-disciplina="{{ $atividade->disciplina_id }}"  data-data="{{ $atividade->data }}" data-conteudo="{{ $atividade->conteudo }}" data-recuperacao="{{ $atividade->recuperacao }}" data-valor="{{ $atividade->valor }}" data-rota="atividades/alterar/{{$atividade->id}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                         <a href="#" class="btn btn-outline-danger btn-sm btn-excluir" data-rota="atividades/excluir/{{$atividade->id}}"> 
@@ -137,6 +137,12 @@
                           <label class="form-label">*Conteúdo</label>
                           <input type="text" class="form-control" name="conteudo" id="editarConteudo"required>
                       </div>
+                      <div class="col-sm-12">
+                          <label class="form-label">*Recuperação</label>
+                          <input type="checkbox" class="form-check-input" name="recuperacao" id="editarRecuperacao">
+                          <input type="hidden" name="recupe" id="editarRecupe"required>
+                      </div>
+
 
                       <div class="col-sm-12">
                           <label class="form-label">*Valor</label>
@@ -194,7 +200,13 @@
           $('#editarTurma').val($(this).data('turma'))
           $('#editarData').val($(this).data('data'))
           $('#editarConteudo').val($(this).data('conteudo'))   
-          $('#editarValor').val($(this).data('valor'))                  
+          $('#editarValor').val($(this).data('valor'))  
+          $('#editarRecupe').val($(this).data('recuperacao'))  
+          if ($('#editarRecupe').val()== '1' ) { 
+             $('#editarRecuperacao').prop('checked', true);
+          }else{
+             $('#editarRecuperacao').prop('checked', false);
+          }          
           $('#modalEditar').modal('show');
       });
 

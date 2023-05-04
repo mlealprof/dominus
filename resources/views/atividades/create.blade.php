@@ -4,6 +4,9 @@
         @csrf
         <div class="row g-3 border rounded-3 pb-3 user-select-none">
             <h5 class="text-primary">Criar nova Atividade</h5>
+
+    
+
             <div class="col-sm-3">
                 <label class="form-label">*Curso</label>
                 <select class="form-select" id="curso_id" name="curso_id">
@@ -30,8 +33,12 @@
                 </select>
             </div>
 
-     
-            <div class="col-sm-7">
+            <div class="col-sm-2">
+                <label class="form-label">*Recuperação?</label>
+                <input type="checkbox"    name="recuperacao"  id="recuperacao">
+            </div>
+
+            <div class="col-sm-6">
                 <label class="form-label">*Professor</label>
                  <select class="form-select" id="professor_id" name="professor_id" >
                     <option value="0">Selecione...</option>
@@ -42,10 +49,12 @@
                         
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label class="form-label">*Data</label>
                 <input type="date" class="form-control  "   name="data"  id="data">
             </div>
+
+            
 
             <div class="col-sm-7">
                 <label class="form-label">Conteúdo</label><br>

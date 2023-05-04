@@ -66,7 +66,7 @@ public function store($id)
        $professores = Professor::query()->orderBy('nome')->get();
        $disciplinas = Disciplina::query()->orderBy('id')->get(); 
        $aulas = Aulas::query()->orderBy('id', 'desc') ->get(); 
-       $turmas_aluno = TurmaAluno::query()->orderBy('nome')->get(); 
+       $turmas_aluno = TurmaAluno::query()->orderBy('id')->get(); 
 
        foreach($aulas as $aula){
             if ($aula->id == $id){                
@@ -96,6 +96,41 @@ public function store($id)
         return redirect('aulas/frequencia/'.$id);
        
     }
+
+
+
+   public function atualizar($id){
+     $alunos_turma = DB::table('turma_aluno')
+                     ->join('aulas','turma_aluno.turma_id','=','aulas.turma_id')
+                     ->where('aulas.id','=',$id)
+                     ->get();
+
+      $frequencias = DB::table('frequencia')->where('aulas_id', $id)->get();
+      
+
+      foreach($alunos_turma as $aluno){
+        $encontrou = false;
+         foreach ($frequencias as $frequencia){
+            if ($frequencia->aluno_id == $aluno->aluno_id){
+               $encontrou=true;
+            }
+         }
+         if ($encontrou == false){
+            $insere = new Frequencia() ;
+            $insere->aluno_id = $aluno->aluno_id;
+            $insere->aulas_id = $id;
+            $insere->presente = 1;                    
+            $insere->save();
+         }
+
+      }               
+
+   
+
+
+      return redirect('aulas/frequencia/'.$id);
+
+   }
 
    public function updateSim($id,$frequencia_id)
     {

@@ -1,5 +1,7 @@
 <x-layout title="Lançando Frequência">
-
+        
+        
+        	
 	 
 	 	<form class="needs-validation" action="{{$id}}/lancar" method="post">
 
@@ -31,7 +33,13 @@
 	             </div>
              <div class="col-3 align-self-end">   
                @if ($frequencias == '[]') 
-	            <button class="btn btn-outline-primary btn-store" type="submit">Lançar Presença</button>	          
+	            <button class="btn btn-outline-primary btn-store" type="submit">Lançar Presença</button>
+	           @else
+	           </form>
+	            <form method="post" action="{{$id}}/atualizar">
+	            	@csrf
+	                <button class="btn btn-outline-primary btn-store" type="submit">Atualizar Lista</button>	          	          
+	            </form>
 	           @endif
             </div>
         </div>
