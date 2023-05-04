@@ -52,10 +52,22 @@
            @endforeach
            <div class="col-3 align-self-end">   
                @if ($notas == '[]') 
-	            <button class="btn btn-outline-primary btn-store" type="submit">Lançar Notas</button>	          
+	            <button class="btn btn-outline-primary btn-store" type="submit">Lançar Notas</button>		            
+	           @else
+	           </form>
+	            <form method="post" action="{{$id}}/atualizar">
+	            	@csrf
+	                <button class="btn btn-outline-primary btn-store" type="submit">Atualizar Lista</button>	          	          
+	            </form>          
 	           @endif
             </div>
         </div>
+
+
+
+
+
+
 
        </form>
        

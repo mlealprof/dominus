@@ -75,6 +75,7 @@ Route::get('atividades/notas/{id}', [NotasController::class, 'index'])->name('at
 
 
 Route::post('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
+Route::post('atividades/notas/{id}/atualizar', [NotasController::class, 'atualizar','$id']);
 Route::get('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
 Route::post('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
 Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);

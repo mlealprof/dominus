@@ -217,6 +217,47 @@ class NotasController extends Controller
             'alunos' => $alunos
         ]);
     }
+
+
+
+   public function atualizar($id){
+     $alunos_turma = DB::table('turma_aluno')
+                     ->join('atividade','turma_aluno.turma_id','=','atividade.turma_id')                     
+                     ->where('atividade.id','=',$id)
+                     ->get();
+
+      
+      $notas = DB::table('notas')->where('atividade_id',$id)->get();
+      
+
+      foreach($alunos_turma as $aluno){
+        $encontrou = false;
+         foreach ($notas as $nota){
+            if ($nota->aluno_id == $aluno->aluno_id){
+               $encontrou=true;
+            }
+         }
+         if ($encontrou == false){
+            $insere = new Notas() ;
+            $insere->aluno_id = $aluno->aluno_id;
+            $insere->atividade_id = $id;
+            $insere->nota = 0;                    
+            $insere->save();
+         }
+
+      }               
+
+   
+
+
+      return redirect('atividades/notas/'.$id);
+
+   }
+
+
+
+
+
         public function boletim(){
         $alunos = Aluno::all();
         $turmas = Turma::query()->orderBy('id')->get();
