@@ -146,7 +146,7 @@ public function store($id)
         return redirect('aulas/frequencia/'.$id.'#'.$frequencia->id);
     }
 
-       public function updateNao($id,$frequencia_id)
+       public function updateNao($frequencia_id)
     {
 
 
@@ -161,6 +161,39 @@ public function store($id)
         
    
     }
+
+
+
+
+
+
+public function updateSim_lote($frequencia_id)
+    {
+
+     
+
+        $frequencia = Frequencia::findOrFail($frequencia_id);
+        $frequencia->presente = 1;
+        $frequencia->save();   
+        return view('frequencia.fechar'); 
+       
+        
+    }
+
+       public function updateNao_lote($frequencia_id)
+    {
+
+        
+        $frequencia = Frequencia::findOrFail($frequencia_id);
+        $frequencia->presente = 0;
+        $frequencia->save();    
+        return view('frequencia.fechar');
+        
+    }
+   
+
+
+
     public function relatorio()
     {
 
@@ -362,6 +395,76 @@ public function store($id)
             'alunos' => $alunos
         ]);
     }
+
+
+
+
+public function faltas_lote(Request $request)
+    {
+
+        if((session()->get('logado')<>'sim')){
+            return view('auth.login');
+         }
+
+        $curso_id = $request->curso_id;
+        $turma_id = $request->turma_id;
+        $modulo_id = $request->modulo_id;
+        $professor_id = $request->professor_id;
+        $disciplina_id = $request->disciplina_id;
+
+        $alunos = Aluno::query()->orderBy('id')->get(); 
+        $cursos = Curso::findOrFail($curso_id);
+        $disciplinas = Disciplina::findOrFail($disciplina_id);
+        $modulos = Modulo::findOrFail($modulo_id);
+        $professores = Professor::findOrFail($professor_id);
+        $turmas = Turma::findOrFail($turma_id);
+     
+
+        $alunos_turma = DB::table('turma_aluno')
+               ->join('alunos','turma_aluno.aluno_id','=','alunos.id')
+               ->select('turma_aluno.*','alunos.nome','alunos.matricula')
+               ->where('turma_id','=',$turma_id)
+               ->orderBy('id')
+               ->get();
+
+       
+
+        $aulas = Aulas::where('curso_id','=',$curso_id)->where('turma_id','=',$turma_id)->where('disciplina_id','=',$disciplina_id)->get();
+
+
+        $qtaulas = count($aulas);
+    
+        $frequencias = DB::table('aulas')
+            ->join('frequencia', 'aulas.id', '=', 'frequencia.aulas_id')
+            ->join('alunos', 'alunos.id', '=', 'frequencia.aluno_id')
+            ->select('aulas.*', 'frequencia.aluno_id', 'frequencia.presente','alunos.nome','frequencia.id as frequencia_id' )
+            ->where('aulas.curso_id','=',$curso_id)->where('aulas.turma_id','=',$turma_id)->where('aulas.disciplina_id','=',$disciplina_id)
+
+            ->orderBy('id')
+            ->get();
+        
+       // dd($frequencias);
+
+       
+
+
+
+        return view('frequencia.dados_falta',[
+            'turma_id' => $turma_id,
+            'cursos' => $cursos,            
+            'disciplina_id' => $disciplina_id,
+            'professores' => $professores,                  
+            'modulos' => $modulos,
+            'aulas' => $aulas,
+            'alunos_turma' => $alunos_turma,
+            'frequencias' => $frequencias,
+            'alunos' => $alunos
+        ]);
+
+    }
+
+
+
 
 
 

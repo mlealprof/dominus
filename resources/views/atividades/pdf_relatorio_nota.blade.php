@@ -28,6 +28,7 @@
                 
                  <td width="200px">
                     <font size="1">
+                       <b>Curso:</b> {{$cursos->nome}}<br>
                        <b>Turma:</b> {{$turmas->nome}} <br>                   
                        <b>Disciplina:</b> {{$disciplinas->nome}} <br>
                        <b>Carga Horária:</b>{{$disciplinas->carga_horaria}}h -
@@ -50,7 +51,7 @@
                     <th>N.º</th>
                     <th>Aluno</th> 
                     @foreach ($atividades as $atividade)                           
-                            <th style="white-space: pre-wrap;" width="130px"><center>{{ \Carbon\Carbon::parse($atividade->data)->format('d/m/Y')}} <br>{{$atividade->conteudo}} <br> Valor: {{$atividade->valor  }} </th>  
+                            <th style="white-space: pre-wrap;" width="80px"><center>{{ \Carbon\Carbon::parse($atividade->data)->format('d/m/Y')}} <br><font size="0.7em">{{$atividade->conteudo}}</font> <br> Valor: {{$atividade->valor  }} </th>  
                     @endforeach                         
                     <th>Total</th>                                        
                 </tr>
@@ -61,7 +62,8 @@
                     @foreach ($turmas_aluno as $aluno_turma)
                         <tr>  
                             @php
-                               $soma=0;                           
+                               $soma=0;  
+                               $recuperacao=0;                         
                             @endphp                       
                             <td>{{$aluno_turma->matricula}}</td>
                             <td> {{$aluno_turma->nome}}</td>

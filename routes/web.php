@@ -52,6 +52,16 @@ Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::c
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
 Route::post('/aulas', [AulasController::class,'filtro'])->name('aulas.filtro');
 Route::post('/aulas/nova', [AulasController::class,'store'])->name('aulas.store');
+Route::get('/faltas_lote', [AulasController::class,'faltas_lote'])->name('aulas.faltas_lote');
+
+
+Route::post('/faltas_lote_alterando', [FrequenciaController::class,'faltas_lote'])->name('frequencia.faltas');
+Route::post('/lote/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim_lote']);
+Route::post('/lote/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao_lote']);
+Route::get('/faltas_lote_alterando', [FrequenciaController::class,'faltas_lote'])->name('frequencia.faltas');
+Route::get('/lote/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim_lote']);
+Route::get('/lote/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao_lote']);
+
 
 Route::get('pdf', [FrequenciaController::class, 'GeraPDF']);
 

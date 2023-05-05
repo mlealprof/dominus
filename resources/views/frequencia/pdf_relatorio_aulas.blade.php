@@ -28,6 +28,7 @@
                 
                 <td width="200px">
                     <font size="1">
+                        <b>Curso:</b> {{$cursos->nome}}<br>
                        <b>Turma:</b> {{$turmas->nome}} <br>                   
                        <b>Disciplina:</b> {{$disciplinas->nome}} <br>
                        <b>Carga Horária:</b>{{$disciplinas->carga_horaria}}h -
