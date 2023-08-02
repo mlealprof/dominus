@@ -66,20 +66,19 @@
                      <td>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}}</td>
                    <td class="text-end">
                     <div class="">
-                        <a href="aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>  
-                        @foreach ($aulas_acao as $aul)
-                           @if ($aul->id == $aula->id)
-                            <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aul->curso_id }}" data-turma="{{ $aul->turma_id }}"  data-disciplina="{{ $aul->disciplina_id }}" data-professor="{{ $aul->professor_id }}" data-data="{{ $aul->data }}" data-conteudo="{{ $aul->conteudo }}" data-rota="{{ route('aulas.update',['aula'=>$aul]) }}">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        <a href="/aulas/frequencia/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Frequência</a>  
+                        <a href="/aulas/frequencia/copiar/{{$aula->id}}" class="btn btn-primary btn-sm btn-adicionar-aluno">Copiar</a> 
+                        
+                        
+                            <a href="#" class="btn btn-outline-secondary btn-sm btn-editar" data-curso="{{ $aula->curso }}" data-turma="{{ $aula->turma }}"  data-disciplina="{{ $aula->disciplina }}" data-professor="{{ $aula->professor}}" data-data="{{ $aula->data }}" data-conteudo="{{ $aula->conteudo }}" data-rota="{{ route('aulas.update',[$aula->id]) }}"> 
+                            <i class="fa fa-pencil" aria-hidden="true">Editar</i>
                            </a>
 
 
-                            <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"data-aula="{{ $aula->id }}" data-rota="{{ route('aulas.destroy',['aula'=>$aul]) }}"> 
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            <a href="#" class="btn btn-outline-danger btn-sm btn-excluir"data-aula="{{ $aula->id }}" data-rota="{{ route('aulas.destroy',[$aula->id]) }}">
+                                <i class="fa fa-trash" aria-hidden="true">Excluir </i>
                             </a>
-                           @endif
-                        @endforeach
-
+                        
 
                     </div>
 
@@ -104,42 +103,6 @@
                   @csrf
                   @method('put')
                   <div class="row g-3">
-                      <div class="col-sm-12">
-                          <label class="form-label">*Curso</label>
-                          <select class="form-select" id="editarCurso" name="curso_id" value="teste">
-                              <option value="0">Selecione</option>
-                              @foreach ($cursos as $curso)
-                                  <option value="{{$curso->curso_id}}">{{$curso->curso}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-                      <div class="col-sm-12">
-                          <label class="form-label">*Turma</label>
-                          <select class="form-select" id="editarTurma" name="turma_id">
-                              <option value="0">Selecione</option>
-                              @foreach ($turmas as $turma)
-                                  <option value="{{$turma->turma_id}}">{{$turma->turma}}</option>
-                              @endforeach
-                          </select>
-                     </div>
-                      <div class="col-sm-12">
-                      <label class="form-label">*Disciplina</label>
-                      <select class="form-select" id="editarDisciplina" name="disciplina_id">
-                          <option value="0">Selecione</option>
-                          @foreach ($disciplinas as $disciplina)
-                              <option value="{{$disciplina->disciplina_id}}">{{$disciplina->disciplina}}</option>
-                          @endforeach
-                      </select>
-                     </div>
-                     <div class="col-sm-12">
-                          <label class="form-label">*Professor</label>
-                          <select class="form-select" id="editarProfessor" name="professor_id">
-                              <option value="0">Selecione</option>
-                              @foreach ($professores as $professor)
-                                  <option value="{{$professor->id}}">{{$professor->nome}}</option>
-                              @endforeach
-                          </select>
-                      </div>
                       
                       <div class="col-sm-12">
                           <label class="form-label">*Data</label>
@@ -162,6 +125,8 @@
       </div>
     </div>
     <!-- Modal editar Aula - Fim -->
+
+
 
  <!-- Modal excluir - Inicio -->
     <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -279,12 +244,6 @@ $('#aula_id').val()
 
 
 
-      //Excluir Registro
-      $( ".btn-excluir" ).on( "click", function() {
-          $('#formDelete').attr('action',$(this).data("rota"))
-          $('#modalExcluirNome').html($(this).data('nome'))
-          $('#modalExcluir').modal('show');
-      });
 
 
 

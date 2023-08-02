@@ -53,6 +53,8 @@
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/atividades">Atividades</a></li>
                     <li><a class="dropdown-item" href="/aulas">Aulas</a></li>
+                    <li><a class="dropdown-item" href="/faltas_lote">Faltas/Lote</a></li>
+
 
                   </ul>
                   

@@ -102,7 +102,7 @@
                     Aulas
                 </a>
             </li>
-             @if (session()->get('professor_id')=='')
+     
             <li>
                 <a href="/faltas_lote" class="navs btn-sm">
                     <img src="{{ asset('icons/presenca.png') }}" style="width: 15%" />
@@ -110,7 +110,6 @@
                 </a>
             </li>
 
-             @endif
 
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

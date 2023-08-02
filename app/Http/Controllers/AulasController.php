@@ -103,7 +103,6 @@ class AulasController extends Controller
                             
                             ->get();
 
-           $aulas_acao = Aulas::all();
 
             $aulas = DB::table('aulas')
                             ->join('cursos','cursos.id','=','aulas.curso_id')
@@ -123,7 +122,7 @@ class AulasController extends Controller
             'disciplinas' => $disciplinas,
             'aulas' => $aulas,
             'professores' => $professores,
-            'aulas_acao' => $aulas_acao
+          
         ]);
 
      
@@ -217,8 +216,9 @@ class AulasController extends Controller
         $aulas->data = $request->data;
         $aulas->conteudo = $request->conteudo;        
         $aulas->save();
-
-        return redirect('aulas');
+        $id = Aulas::where('id','<>','')->orderBy('id', 'desc')->first();
+        
+        return redirect('aulas/frequencia/'.$id->id);
     }
 
     /**
@@ -228,20 +228,24 @@ class AulasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aulas $aula)
+    public function update(Request $request, $id)
     {
-        $aula->turma_id = $request->turma_id;
-        $aula->curso_id = $request->curso_id;
-        $aula->disciplina_id = $request->disciplina_id;
-        $aula->professor_id = $request->professor_id;
+        $aula = Aulas::findOrFail($id);
         $aula->data = $request->data;
         $aula->conteudo = $request->conteudo;
         $aula->save();
 
-        return redirect('aulas');
+         return redirect('aulas/frequencia/show/'.$id);
     }
-    public function destroy(Aulas $aula)
+    public function destroy($id)
     {
+        $aula = Aulas::findOrFail($id);
+        $frequencias = DB::table('frequencia')->where('aulas_id', $id)->get();
+        foreach ($frequencias as $frequencia){
+            $frequencia->delete();
+        }
+
+
         $aula->delete();
         return redirect('aulas');
     }
