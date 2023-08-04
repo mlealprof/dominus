@@ -11,6 +11,7 @@ use App\Models\Aluno;
 use App\Models\Disciplina;
 use App\Models\Professor;
 use App\Models\TurmaAluno;
+use App\Models\Frequencia;
 use App\Models\TurmaProfessor;
 use App\Models\Horario;
 use Illuminate\Support\Facades\DB;
@@ -240,9 +241,10 @@ class AulasController extends Controller
     public function destroy($id)
     {
         $aula = Aulas::findOrFail($id);
-        $frequencias = DB::table('frequencia')->where('aulas_id', $id)->get();
+        $frequencias = DB::table('frequencia')->where('aulas_id', $id)->get();        
         foreach ($frequencias as $frequencia){
-            $frequencia->delete();
+            $freq = Frequencia::findOrFail($frequencia->id);
+           $freq->delete();
         }
 
 
