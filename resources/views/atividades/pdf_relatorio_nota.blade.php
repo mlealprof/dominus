@@ -11,6 +11,16 @@
    date_default_timezone_set ("America/Sao_Paulo");
    $hoje = date('d/m/Y  -  h:i:s');
    echo "<font size='0.4em'><div>Data: ".$hoje."<div></font>";
+   $fonte = $_POST['fonte'];
+   if ($fonte == '0') {
+       $tamanho ='8';
+   }
+   if ($fonte == '1') {
+       $tamanho ='6';
+   }
+   if ($fonte == '2') {
+       $tamanho ='4';
+   }
 ?>
       
       <table class="border" width="100%">
@@ -43,7 +53,7 @@
            </tr>
       
 </table><br>
-<font size="0.8em">
+<font <?php echo "size='0.".$tamanho."em'";?> >
 
 <table id="taleta" border="'">
             <thead>

@@ -43,7 +43,7 @@
                 </select>
             </div>
 
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <label class="form-label">*Professor</label>
                  <select class="form-select" id="professor_id" name="professor_id" >
                     <option value="0">Selecione...</option>
@@ -51,6 +51,17 @@
                 </select>
         
             </div>
+             <div class="col-sm-2">
+                <label class="form-label">Fonte</label>
+                 <select class="form-select" id="fonte" name="fonte" >
+                    <option value="0">Grande</option>
+                    <option value="1">Média</option>
+                    <option value="2">Pequena</option>
+                                
+                </select>
+        
+            </div>
+
 
 
             <div class="col-sm-2 align-self-end text-end ">
