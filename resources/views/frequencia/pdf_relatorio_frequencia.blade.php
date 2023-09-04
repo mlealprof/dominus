@@ -11,6 +11,7 @@
    date_default_timezone_set ("America/Sao_Paulo");
    $hoje = date('d/m/Y  -  h:i:s');
    echo "<font size='0.4em'><div>Data: ".$hoje."<div></font>";
+   $fonte = $_POST['fonte'];
    if ($fonte == '0') {
        $tamanho ='8';
    }
@@ -52,15 +53,15 @@
 </table><br>
 <font <?php echo "size='0.".$tamanho."em'";?> >
 
-<table  id="taleta" border="0.5">
+<table  id="taleta" border="0.1">
             <thead>
-                <tr >
+                <tr>
                     <th>N.º</th>
                     <th>Aluno</th> 
                        @foreach ($aulas as $aula)
                        @if (( $aula->disciplina_id == $disciplina_id) and ($aula->turma_id == $turma_id))
                             
-                            <th border="0" ><font size='0.5em'>{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}} </font></th>  
+                            <th border="0" style="transform: rotate(270deg);"><font size='0.6em' >{{ \Carbon\Carbon::parse($aula->data)->format('d/m/Y')}} </font></th>  
                            
                        @endif
                     @endforeach                  
@@ -75,7 +76,7 @@
                            $qt=0;                                                                                    
                          @endphp
                          <td >{{$aluno->matricula}}</td>
-                         <td > {{$aluno->nome}}</td> 
+                         <td width="200px"> {{$aluno->nome}}</td> 
 
                          @foreach ($aulas as $aula)                                       
                               @php
@@ -88,7 +89,7 @@
                                        @if ($frequencia->presente == 1)
                                            <td align="center"> P </td>                            
                                        @else
-                                          <td align="center"> F </td> 
+                                          <td align="center" > F </td> 
                                           @php
                                              $qt=$qt+1;
                                           @endphp                                                      

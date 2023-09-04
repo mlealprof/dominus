@@ -47,7 +47,7 @@
                 </select>
         
             </div>
-            </div>
+            
              <div class="col-sm-2">
                 <label class="form-label">Fonte</label>
                  <select class="form-select" id="fonte" name="fonte" >
@@ -133,7 +133,7 @@
               $(this).addClass('is-valid');
                $( "#btnNovo" ).prop( "disabled", false ).focus();
               $("#btnNovo").focus();
-              addProfessor($('#disciplina_id').val())
+              addProfessor($('#disciplina_id').val(),$('#turma_id').val())
           } else {
               $(this).removeClass('is-valid')              
           }

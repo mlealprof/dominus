@@ -61,7 +61,7 @@
                     <th>N.º</th>
                     <th>Aluno</th> 
                     @foreach ($atividades as $atividade)                           
-                            <th style="white-space: pre-wrap;" width="80px"><center>{{ \Carbon\Carbon::parse($atividade->data)->format('d/m/Y')}} <br><font size="0.7em">{{$atividade->conteudo}}</font> <br> Valor: {{$atividade->valor  }} </th>  
+                            <th style="white-space: pre-wrap;" <?php echo "width='".$tamanho."0px'";?>><center>{{ \Carbon\Carbon::parse($atividade->data)->format('d/m/Y')}} <br><font size="0.7em">{{$atividade->conteudo}}</font> <br> Valor: {{$atividade->valor  }} </th>  
                     @endforeach                         
                     <th>Total</th>                                        
                 </tr>
