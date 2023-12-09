@@ -55,6 +55,7 @@
 	            <button class="btn btn-outline-primary btn-store" type="submit">Lançar Notas</button>		            
 	           @else
 	           </form>
+
 	            <form method="post" action="{{$id}}/atualizar">
 	            	@csrf
 	                <button class="btn btn-outline-primary btn-store" type="submit">Atualizar Lista</button>	          	          
@@ -70,39 +71,35 @@
 
 
        </form>
+       	<form method="post" action="{{$id}}/salvar">
+	     @csrf	             
        
-        <table id="tableAlunosPoTurma" class="displa table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th class="text-end">Nota</th>
-    
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($alunos as $aluno)
-                @foreach ($notas as $nota)                      
-                    @if($nota->aluno_id == $aluno->id)
-                    <tr>
-                        <td id="S">{{ $aluno->nome }}</td>
-                        <td class="text-end">
-                          
-                        	   <input type="text" onblur="altera('{{$nota->id}}','{{$nota->atividade_id}}','{{$nota->nota}}')" id="{{$nota->id}}"  class="salva"  name="{{$nota->id}}" size="3" value="{{$nota->nota}}">
-                            
-                          
-                            
-                        </td>      
-                      </tr>
-                        	
-                    @endif
-                @endforeach    
-            @endforeach
-
-
-            
-       
-        </tbody>
-    </table>     
+		        <table id="tableAlunosPoTurma" class="displa table table-striped" style="width:100%">
+		        <thead>
+		            <tr>
+		                <th>Nome</th>
+		                <th class="text-end">Nota</th>
+		    
+		            </tr>
+		        </thead>
+		        <tbody>
+		            @foreach ($notas as $nota)                      
+		                <tr>
+		                    <td id="S">{{ $nota->aluno }}</td>
+		                    <td class="text-end">
+		                      <!--
+		                      <input type="text" onblur="altera('{{$nota->id}}','{{$nota->atividade_id}}','{{$nota->nota}}')" id="{{$nota->id}}"  class="salva"  name="{{$nota->id}}" size="3" value="{{$nota->nota}}">
+		                      -->
+		                      <input type="text" name="{{$nota->id}}" id="{{$nota->id}}" size="3" class="salva" value="{{$nota->nota}}">
+		                    </td>      
+		                </tr>
+		            @endforeach    
+		        </tbody>
+		    </table>  
+		    <div style="position:absolut; float:right;">
+           	  <button class="btn btn-outline-primary btn-store "   type="submit">Salvar</button>	
+           	</div>          	          
+	</form>    
 
 
 

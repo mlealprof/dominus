@@ -50,10 +50,40 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th class="text-end">Presente?</th>
+                <th class="text-end">Presente? NÃO/SIM</th>
             </tr>
         </thead>
-        <tbody>
+        <form method="post" action="{{$id}}/salvar">
+	         @csrf	
+          <tbody>
+          
+        	 @foreach ($frequencias as $frequencia)  
+                    <tr>
+                        <td>{{ $frequencia->nome }}</td>
+                        <td class="text-end">
+                     
+                        	@if ($frequencia->presente==1)
+
+                        	<div class="form-switch">
+							  <input class="form-check-input" type="checkbox" role="switch" name="{{$frequencia->id}}"id="flexSwitchCheckChecked" checked>
+							  <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+							</div>					
+	                                
+	                        @else
+	                         <div class="form-switch">
+							  <input class="form-check-input" type="checkbox" role="switch" name="{{$frequencia->id}}" id="flexSwitchCheckChecked" >
+							  <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+							 </div>	                             
+	                        @endif
+	                                                  
+                        </td>
+                     </tr>                
+                @endforeach    
+
+
+
+
+        	<!--
                 @foreach ($frequencias as $frequencia)  
                     <tr>
                         <td>{{ $frequencia->nome }}</td>
@@ -78,11 +108,18 @@
                 
                 @endforeach    
   
-
+              -->
             
        
         </tbody>
-    </table>        
+         </table> 
+          <div style="position:absolut; float:right;">
+             <button class="btn btn-outline-primary btn-store "   type="submit">Salvar</button>	
+          </div> 
+       </form>
+      
+
+
 
   <script type="text/javascript">
 

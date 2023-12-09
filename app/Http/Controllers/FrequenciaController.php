@@ -303,6 +303,30 @@ public function store($id)
 
    }
 
+    public function atualiza_presenca(Request $request, $id)
+    {
+
+        $frequencias = DB::table('frequencia')
+                      ->join('alunos','frequencia.aluno_id','=','alunos.id')
+                      ->select('frequencia.*','alunos.nome')
+                      ->where('frequencia.aulas_id','=', $id)
+                      ->orderBy('alunos.nome', 'ASC')
+                      ->get();
+       
+       foreach ($frequencias as $freq){
+            $frequencia = Frequencia::findOrFail($freq->id);
+            if ($request->input($freq->id)){
+                $frequencia->presente = 1;
+             } else {
+                $frequencia->presente = 0;
+             }
+            
+            $frequencia->save();    
+       }
+
+        return redirect('aulas/frequencia/'.$id.'#'.$frequencia->id);
+    }
+
    public function updateSim($id,$frequencia_id)
     {
 

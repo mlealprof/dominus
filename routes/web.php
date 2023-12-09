@@ -49,6 +49,7 @@ Route::get('aulas/frequencia/show/{id}', [FrequenciaController::class, 'filtro',
 Route::get('aulas/frequencia/copiar/{id}', [FrequenciaController::class, 'copiar','$id'])->name('aulas.frequencia.show');
 Route::post('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
 Route::post('aulas/frequencia/{id}/atualizar', [FrequenciaController::class, 'atualizar','$id']);
+Route::post('aulas/frequencia/{id}/salvar', [FrequenciaController::class, 'atualiza_presenca','$id']);
 Route::get('aulas/frequencia/{id}/lancar', [FrequenciaController::class, 'store','$id']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/sim', [FrequenciaController::class, 'updateSim']);
 Route::get('aulas/frequencia/{id}/{frequencia_id}/nao', [FrequenciaController::class, 'updateNao']);
@@ -88,6 +89,7 @@ Route::get('atividades/notas/{id}', [NotasController::class, 'index'])->name('at
 
 Route::post('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
 Route::post('atividades/notas/{id}/atualizar', [NotasController::class, 'atualizar','$id']);
+Route::post('atividades/notas/{id}/salvar', [NotasController::class, 'altera_nota','$id']);
 Route::get('atividades/notas/{id}/lancar', [NotasController::class, 'store','$id']);
 Route::post('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);
 Route::get('atividades/notas/{id}/alterar', [NotasController::class, 'update','$id']);

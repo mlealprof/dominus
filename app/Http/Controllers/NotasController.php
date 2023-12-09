@@ -27,7 +27,15 @@ class NotasController extends Controller
         $cursos = Curso::query()->orderBy('nome')->get();
         $disciplinas = Disciplina::query()->orderBy('id')->get();  
         $atividades = Atividade::query()->orderBy('data', 'desc') ->get();
-        $notas = DB::table('notas')->where('atividade_id', $id)->get();
+        $notas = DB::table('notas')
+                 ->join ('alunos','notas.aluno_id','=','alunos.id',)
+                 ->select('alunos.nome as aluno','notas.*')
+                 ->where('atividade_id', $id)
+                 ->orderBy('alunos.nome')
+                 ->get();
+
+
+   
 
       
         $professores = Professor::query()->orderBy('nome')->get();
@@ -96,7 +104,30 @@ class NotasController extends Controller
     }
 
 
-     public function altera_nota($id,$nota,$atividade)
+     public function altera_nota(Request $request,$id)
+    {
+           
+      //  dd($request->input("21772"));
+        $notas = DB::table('notas')
+                 ->join ('alunos','notas.aluno_id','=','alunos.id',)
+                 ->select('alunos.nome as aluno','notas.*')
+                 ->where('atividade_id', $id)
+                 ->orderBy('alunos.nome')
+                 ->get();
+        foreach($notas as $not){
+           $n = Notas::findOrFail($not->id);  
+           $n->nota = $request->input($not->id);
+           $n->save(); 
+        }
+         
+        
+
+        return redirect('atividades/notas/'.$id);   
+       
+    }
+
+   /*
+    public function altera_nota($id,$nota,$atividade)
     {
         $n = Notas::findOrFail($id);
         $n->nota = $nota;
@@ -106,6 +137,7 @@ class NotasController extends Controller
         return redirect('atividades/notas/'.$atividade.'#'.$id);   
        
     }
+    */
 
     public function relatorios(){
         
